@@ -279,10 +279,11 @@ class Metashape(idp.reconstruct.Recons):
 
         chunk_id2label = {}
         label2chunk_id = {}
+        remove_chunk_id = []
         for chunk_id in project_dict.keys():
             chunk_dict = read_chunk_zip(folder_path, project_name, chunk_id, return_label_only=True)
 
-            if chunk_dict['enabled']:
+            if chunk_dict and chunk_dict['enabled']:
                 lb = chunk_dict['label']
                 lb_len = len(lb)
                 # judge if two chunks have the same label
@@ -298,6 +299,11 @@ class Metashape(idp.reconstruct.Recons):
                 chunk_id2label[chunk_id] = lb
                 label2chunk_id[lb] = chunk_id
             else:   # ignore the disabled chunk.
+                remove_chunk_id.append(chunk_id)
+                continue
+
+        if len(remove_chunk_id) > 0:
+            for chunk_id in remove_chunk_id:
                 project_dict.pop(chunk_id)
 
         # open the first chunk if chunk_id not given.
@@ -309,12 +315,14 @@ class Metashape(idp.reconstruct.Recons):
                     f"[{first_chunk_id}] '{chunk_id2label[first_chunk_id]}', "
                     f"ignore the wrong chunk_id [{self.chunk_id}] specified by user.")
             self.chunk_id = first_chunk_id
-        else:   # has multiple chunks
+        elif len(project_dict) > 1:   # has multiple chunks
             if self.chunk_id is None:
                 warnings.warn(
                     f"The project has [{len(project_dict)}] chunks, however no chunk_id has been specified, "
                     f"open the first chunk [{first_chunk_id}] '{chunk_id2label[first_chunk_id]}' by default.")
                 self.chunk_id = first_chunk_id
+        else: # has zero chunk available
+            raise IndexError(f"Metashape project has no chunk folder (e.g. './0/', './1/') at [{folder_path}/{project_name}.files]")
 
         # save to project parameters
         self.project_folder = folder_path
@@ -1195,6 +1203,11 @@ def read_chunk_zip(project_folder, project_name, chunk_id, skip_disabled=False, 
 
     """
     frame_zip_file = f"{project_folder}/{project_name}.files/{chunk_id}/chunk.zip"
+    # for test data, some metashape projects are not complete, then skip and return None
+    if not os.path.exists(frame_zip_file):
+        print(f'[Warning] Metashape project {project_folder} Chunk {chunk_id} folder missing')
+        return None
+
     xml_str = _get_xml_str_from_zip_file(frame_zip_file, "doc.xml")
     xml_tree = ElementTree.fromstring(xml_str)
 
@@ -1573,27 +1586,31 @@ def _decode_sensor_tag(xml_obj, debug_meta={}):
     sensor.pixel_height_unit = "mm"
     sensor.focal_length = float(xml_obj.findall("./property/[@name='focal_length']")[0].attrib["value"])
 
-    calib_tag = xml_obj.findall("./calibration")
-    if len(calib_tag) != 1:
-        # load the debug info
-        if len(debug_meta) == 0:  # not specify input
-            debug_meta = {
-                "project_folder": 'project_folder', 
-                "project_name"  : 'project_name',
-                "chunk_id": 'chunk_id',
-                "chunk_path": 'chunk_id/chunk.zip'
-            }
+    calib_tags = xml_obj.findall("./calibration")
 
+    # check if has <calibration type="frame" class="adjusted"> tag
+    has_adjusted_tag = False
+    for c in calib_tags:
+        if c.attrib['class'] == 'adjusted':
+            has_adjusted_tag = True
+            sensor.calibration = _decode_calibration_tag(c)
+            sensor.calibration.sensor = sensor
+            break
+
+    if len(calib_tags) != 1:
+        if has_adjusted_tag:
+            warnings.warn(f'Detect {len(calib_tags)} <calibration> tags in <sensor label={sensor.label}> tag, using <calibration class="adjusted">')
+            
+
+    if not has_adjusted_tag:
         xml_str = minidom.parseString(ElementTree.tostring(xml_obj)).toprettyxml(indent="  ")
         # remove the first line <?xml version="1.0" ?> and empty lines
         xml_str = os.linesep.join([s for s in xml_str.splitlines() if s.strip() and '?xml version=' not in s])
-        warnings.warn(f"The sensor tag in [{debug_meta['chunk_path']}] has {len(calib_tag)} <calibration> tags, but expected 1\n"
-                      f"\n{xml_str}\n\nThis may cause by importing photos but delete them before align processing in metashape, "
-                      f"and leave the 'ghost' empty sensor tag, this is just a warning and should have no effect to you")
+        warnings.warn(
+            f'No expected <calibration class="adjusted"> tag found in <sensor label={sensor.label}> tag\n'
+            f'Problemed XML tags for debugging reference: \n{xml_str}\n')
+        
         sensor.calibration = None
-    else:
-        sensor.calibration = _decode_calibration_tag(xml_obj.findall("./calibration")[0])
-        sensor.calibration.sensor = sensor
 
     return sensor
 

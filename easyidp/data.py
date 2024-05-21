@@ -480,6 +480,7 @@ class TestData(EasyidpDataSet):
         * ``.metashape.wheat_param``
         * ``.metashape.multichunk_psx``
         * ``.metashape.multichunk_param``
+        * ``.metashape.two_calib``
 
 
         **pix4d test module** 
@@ -563,6 +564,9 @@ class TestData(EasyidpDataSet):
 
             self.camera_disorder_psx   = data_dir / "metashape" / "camera_disorder.psx"
             self.camera_disorder_param = data_dir / "metashape" / "camera_disorder.files"
+
+            self.two_calib_psx   = data_dir / "metashape" / "two_calib.psx"
+            self.two_calib_param = data_dir / "metashape" / "two_calib.files"
 
 
     class Pix4Dataset():

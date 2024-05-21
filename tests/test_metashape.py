@@ -152,7 +152,6 @@ def test_class_init_metashape_multi_folder():
     assert ms.photos[0].label == "[0]100MEDIA-DJI_0001"
     assert len(ms.photos) == 218
 
-
 def test_class_init_metashape_warns_errors():
     # warning init with chunk_id without project_path
     with pytest.warns(UserWarning, match=re.escape("Unable to open chunk_id [0] for empty project with project_path=None")):
@@ -189,6 +188,13 @@ def test_class_init_metashape_warns_errors():
         roi = idp.ROI()
         roi['plot1'] = plot
         m5.back2raw(roi)
+
+
+def test_class_init_metashape_with_missing_chunk_folders():     
+    m6 = idp.Metashape(project_path=test_data.metashape.two_calib_psx)
+    assert len(m6._chunk_id2label) == 1 
+    assert '0' in m6._chunk_id2label.keys()
+    assert 'RGB_230923_20m' in m6._chunk_id2label.values()
             
 
 def test_class_fetch_by_label():
@@ -582,7 +588,7 @@ def test_debug_calibration_tag_error():
     for i, sensor_tag in enumerate(sensors_search):
 
         if i == 0:
-            with pytest.warns(UserWarning, match=re.escape("The sensor tag in [chunk_id/chunk.zip] has 0 <calibration> tags")):
+            with pytest.warns(UserWarning, match=re.escape('No expected <calibration class="adjusted"> tag found in <sensor label=Test_Pro (10.26mm)> tag')):
                 sensor = idp.metashape._decode_sensor_tag(sensor_tag)
 
             assert sensor.calibration is None
@@ -708,3 +714,36 @@ def test_metashape_disordered_image_xml():
     assert ms.photos[0].label == "80m/e-w/card01/100MEDIA/DJI_0001.JPG"
 
     assert ms.photos[1].label == '80m/e-w/card01/101MEDIA/DJI_0538.JPG'
+
+
+def test_parse_sensor_tags_with_multiple_calibration():
+    """
+    <calibration type="frame" class="initial">
+        <resolution width="5280" height="3956"/>
+        <f>3713.29</f>
+        <cx>7.0199999999999996</cx>
+        <cy>-8.7200000000000006</cy>
+        <k1>-0.11257523999999999</k1>
+        <k2>0.014874429999999999</k2>
+        <k3>-0.027064109999999999</k3>
+        <p1>9.9999999999999995e-08</p1>
+        <p2>-8.5719999999999999e-05</p2>
+      </calibration>
+      <calibration type="frame" class="adjusted">
+        <resolution width="5280" height="3956"/>
+        <f>4758.8543529678982</f>
+        <cx>14.842273128715597</cx>
+        <cy>-2.8329842300848433</cy>
+        <k1>-0.15762331681570707</k1>
+        <k2>-0.16432342601626651</k2>
+        <k3>0.43042327353025245</k3>
+        <k4>-0.49918757322065133</k4>
+        <p1>-0.0012357946245061236</p1>
+        <p2>-0.0011496526754087306</p2>
+      </calibration>
+    """
+    with pytest.warns(UserWarning, match=re.escape('Detect 2 <calibration> tags in <sensor label=M3M (12.29mm)> tag, using <calibration class="adjusted">')):
+        m6 = idp.Metashape(project_path=test_data.metashape.two_calib_psx)
+
+    assert m6.sensors[0].calibration.f == 4758.8543529678982
+    assert m6.sensors[0].calibration.cx == 14.842273128715597
