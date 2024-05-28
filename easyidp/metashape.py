@@ -474,7 +474,7 @@ class Metashape(idp.reconstruct.Recons):
 
         if not camera_i.enabled:
             return None
-
+        
         t = camera_i.transform[0:3, 3]
         r = camera_i.transform[0:3, 0:3]
 
@@ -1300,7 +1300,23 @@ def _photoxml2object(xml_tree, sensors):
     # <cameras next_id="218" next_group_id="3">
     #   <group id="0" label="100MEDIA" type="folder">
     #     <camera id="0" sensor_id="0" component_id="0" label="DJI_0003">
-    group_tags = xml_tree.findall("./cameras/group")
+    #
+    # for multispectral projects, both camera and group existing
+    # need to do at the same time
+    # <cameras next_id="218" next_group_id="3">
+    #   <group id="0" label="100MEDIA" type="folder">
+    #     <camera id="0" sensor_id="0" component_id="0" label="DJI_0003">
+    #     <camera id="0" sensor_id="0" component_id="0" master_id="932" label="DJI_0003">
+    #     <camera id="0" sensor_id="0" component_id="0" master_id="932" label="DJI_0003">
+    #     <camera id="0" sensor_id="0" component_id="0" master_id="932" label="DJI_0003">
+    #   </group>
+    #   <camera ... >
+    #   <camera master_id="932" ... >
+    #   <camera master_id="932" ... >
+    #   <camera master_id="932" ... >
+    #   <camera ... >
+    group_tags  = xml_tree.findall("./cameras/group")
+    camera_tags = xml_tree.findall("./cameras/camera")
 
     # create an empty conatiner for disordered camera
     cam_total_num = int(xml_tree.findall("./cameras")[0].attrib['next_id'])
@@ -1311,33 +1327,41 @@ def _photoxml2object(xml_tree, sensors):
         disabled_camera.enabled = False
         photos[i] = disabled_camera
 
-    if len(group_tags) == 0:
-        for camera_tag in xml_tree.findall("./cameras/camera"):
+    ######################
+    # decode camera tags #
+    ######################
+    for camera_tag in camera_tags:
+        camera = _decode_camera_tag(camera_tag)
+        camera.sensor = sensors[camera.sensor_id]
+        # multispectral camera groups, get transform from master_id
+        if camera.master_id is not None:
+            camera.transform = photos[camera.master_id].transform
+        photos[camera.id] = camera
+
+    #########################
+    # decode container tags #
+    #########################
+    # judge if has group with the same name
+    group_label_pool = [g.attrib['label'] for g in group_tags]
+    group_label_pool_unique = set(group_label_pool)
+    if len(group_label_pool_unique) != len(group_label_pool):
+        has_duplicate_name = True
+    else:
+        has_duplicate_name = False
+
+    for group_tag in group_tags:
+        if has_duplicate_name:
+            group_label = f"[{group_tag.attrib['id']}]{group_tag.attrib['label']}"
+        else:
+            group_label = group_tag.attrib['label'] 
+        camera_tags = group_tag.findall("./camera")
+
+        for camera_tag in camera_tags:
             camera = _decode_camera_tag(camera_tag)
             camera.sensor = sensors[camera.sensor_id]
+            # rename camera label to group-label to avoid duplicates
+            camera.label = f"{group_label}-{camera.label}" 
             photos[camera.id] = camera
-    else:
-        # judge if has group with the same name
-        group_label_pool = [g.attrib['label'] for g in group_tags]
-        group_label_pool_unique = set(group_label_pool)
-        if len(group_label_pool_unique) != len(group_label_pool):
-            has_duplicate_name = True
-        else:
-            has_duplicate_name = False
-
-        for group_tag in group_tags:
-            if has_duplicate_name:
-                group_label = f"[{group_tag.attrib['id']}]{group_tag.attrib['label']}"
-            else:
-                group_label = group_tag.attrib['label'] 
-            camera_tags = group_tag.findall("./camera")
-
-            for camera_tag in camera_tags:
-                camera = _decode_camera_tag(camera_tag)
-                camera.sensor = sensors[camera.sensor_id]
-                # rename camera label to group-label to avoid duplicates
-                camera.label = f"{group_label}-{camera.label}" 
-                photos[camera.id] = camera
 
     return photos
 
@@ -1751,6 +1775,29 @@ def _decode_camera_tag(xml_obj):
             <reference x="139.54051557" y="35.739036839999997" z="106.28" yaw="344.19999999999999" pitch="0" roll="-0" enabled="true" rotation_enabled="false"/>
         </camera>
 
+    Camera tag example 4:
+
+    The multi-spectral camera bind other band to one main bind, which produced an extra :code:`master_id` tag
+
+    .. code-block:: xml
+
+        <camera id="580" sensor_id="0" component_id="0" label="DJI_20230901130208_0001_MS_G">
+            <transform>-0.12310895267876176 -0.99222946444830074 0.018024307225944669 -29.677549141381292 -0.97579423991461833 0.12433783620472236 0.17990470765763514 -8.9185737325389045 -0.18074785509042671 0.0045598649721814155 -0.98351889687572625 -2.5813933981741113 0 0 0 1</transform>
+            <rotation_covariance>2.2379243963339504e-08 -2.4391806918735771e-09 -8.3346207902797458e-10 -2.439180691873578e-09 9.7130495805281601e-09 4.3318462943809853e-10 -8.334620790279752e-10 4.3318462943809838e-10 9.2393829603982969e-10</rotation_covariance>
+            <location_covariance>1.0374823876600216e-06 1.1424223684349538e-06 -5.5892400680936419e-06 1.1424223684349538e-06 4.973670658522419e-06 -2.3456960881169798e-05 -5.5892400680936419e-06 -2.3456960881169798e-05 0.00012152005057046991</location_covariance>
+            <orientation>1</orientation>
+            <reference x="119.153465857" y="31.623520850999999" z="62.052" yaw="101.99999999999999" pitch="0.099999999999993788" roll="-0" enabled="true" rotation_enabled="false"/>
+        </camera>
+        <camera id="583" sensor_id="3" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_NIR">
+            <orientation>1</orientation>
+        </camera>
+        <camera id="581" sensor_id="1" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_R">
+            <orientation>1</orientation>
+        </camera>
+        <camera id="582" sensor_id="2" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_RE">
+            <orientation>1</orientation>
+        </camera>
+
     Returns
     -------
     camera: easyidp.Photo object
@@ -1760,7 +1807,40 @@ def _decode_camera_tag(xml_obj):
     camera.sensor_id = int(xml_obj.attrib["sensor_id"])
     camera.label = xml_obj.attrib["label"]
     camera.orientation = int(xml_obj.findall("./orientation")[0].text)
-    #camera.enabled = bool(xml_obj.findall("./reference")[0].attrib["enabled"])
+    # get enabled for multispectral images
+    # Exmaple of calibration_image group folder:
+    """
+    <camera id="932" sensor_id="0" label="DJI_20230901132303_0001_MS_G" enabled="false">
+        <orientation>1</orientation>
+        <reference x="..." y="..." z="..." yaw="..." pitch="..." roll="..." enabled="true" rotation_enabled="false"/>
+    </camera>
+    <camera id="935" sensor_id="3" master_id="932" label="DJI_20230901132303_0001_MS_NIR" enabled="false">
+        <orientation>1</orientation>
+    </camera>
+    """
+    # Example of common image:
+    """
+    <camera id="580" sensor_id="0" component_id="0" label="DJI_20230901130208_0001_MS_G">
+      <transform>...</transform>
+      <rotation_covariance>...</rotation_covariance>
+      <location_covariance>...</location_covariance>
+      <orientation>1</orientation>
+      <reference x="..." y="..." z="..." yaw="..." pitch="..." roll="..." enabled="true" rotation_enabled="false"/>
+    </camera>
+    <camera id="583" sensor_id="3" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_NIR">
+      <orientation>1</orientation>
+    </camera>
+    """
+    if "enabled" not in xml_obj.attrib.keys():
+        camera.enabled = True
+    else:
+        if xml_obj.attrib["enabled"] == 'false':
+            camera.enabled = False
+        else:
+            camera.enabled = True
+
+    if "master_id" in xml_obj.attrib.keys():
+        camera.master_id = int(xml_obj.attrib["master_id"])
 
     # deal with camera have empty tags
     transform_tag = xml_obj.findall("./transform")
@@ -1768,8 +1848,9 @@ def _decode_camera_tag(xml_obj):
         transform_str = transform_tag[0].text
         camera.transform = np.fromstring(transform_str, sep=" ", dtype=float).reshape((4, 4))
     else:
-        # have no transform, can not do the reverse caluclation
-        camera.enabled = False
+        if camera.master_id is None:
+            # have no transform and not master_id, can not do the reverse caluclation
+            camera.enabled = False
 
     shutter_rotation_tag = xml_obj.findall("./rolling_shutter/rotation")
     if len(shutter_rotation_tag) == 1:

@@ -332,6 +332,9 @@ class Photo:
         #self.xyz = {"X": 0, "Y": 0, "Z": 0}
         #self.orientation = {"yaw": 0.0, "pitch": 0.0, "roll": 0.0}
 
+        # parent info, for multispectral cameras
+        self.master_id = None
+
     def _img_exists(func):
         """the decorator to check if image exists"""
         def wrapper(self, *args, **kwargs):

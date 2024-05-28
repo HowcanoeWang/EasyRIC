@@ -481,6 +481,7 @@ class TestData(EasyidpDataSet):
         * ``.metashape.multichunk_psx``
         * ``.metashape.multichunk_param``
         * ``.metashape.two_calib``
+        * ``.metashape.multi_spectral``
 
 
         **pix4d test module** 
@@ -567,6 +568,9 @@ class TestData(EasyidpDataSet):
 
             self.two_calib_psx   = data_dir / "metashape" / "two_calib.psx"
             self.two_calib_param = data_dir / "metashape" / "two_calib.files"
+
+            self.multi_spectral_psx   = data_dir / "metashape" / "multi_spectral.psx"
+            self.multi_spectral_param = data_dir / "metashape" / "multi_spectral.files"
 
 
     class Pix4Dataset():

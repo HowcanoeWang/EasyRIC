@@ -747,3 +747,106 @@ def test_parse_sensor_tags_with_multiple_calibration():
 
     assert m6.sensors[0].calibration.f == 4758.8543529678982
     assert m6.sensors[0].calibration.cx == 14.842273128715597
+
+def test_parse_multi_spectral_camera_tags():
+    multi_spectral_xml = '''
+    <cameras next_id="936" next_group_id="1">
+        <group id="0" label="Calibration images" type="folder">
+            <camera id="932" sensor_id="0" label="DJI_20230901132303_0001_MS_G" enabled="false">
+                <orientation>1</orientation>
+                <reference x="119.15423136699999" y="31.623286889999999" z="45.177" yaw="290.19999999999999" pitch="0.099999999999993788" roll="-0" enabled="true" rotation_enabled="false"/>
+            </camera>
+            <camera id="935" sensor_id="3" master_id="932" label="DJI_20230901132303_0001_MS_NIR" enabled="false">
+                <orientation>1</orientation>
+            </camera>
+            <camera id="933" sensor_id="1" master_id="932" label="DJI_20230901132303_0001_MS_R" enabled="false">
+                <orientation>1</orientation>
+            </camera>
+            <camera id="934" sensor_id="2" master_id="932" label="DJI_20230901132303_0001_MS_RE" enabled="false">
+                <orientation>1</orientation>
+            </camera>
+        </group>
+        <camera id="580" sensor_id="0" component_id="0" label="DJI_20230901130208_0001_MS_G">
+            <transform>-0.12310895267876176 -0.99222946444830074 0.018024307225944669 -29.677549141381292 -0.97579423991461833 0.12433783620472236 0.17990470765763514 -8.9185737325389045 -0.18074785509042671 0.0045598649721814155 -0.98351889687572625 -2.5813933981741113 0 0 0 1</transform>
+            <rotation_covariance>2.2379243963339504e-08 -2.4391806918735771e-09 -8.3346207902797458e-10 -2.439180691873578e-09 9.7130495805281601e-09 4.3318462943809853e-10 -8.334620790279752e-10 4.3318462943809838e-10 9.2393829603982969e-10</rotation_covariance>
+            <location_covariance>1.0374823876600216e-06 1.1424223684349538e-06 -5.5892400680936419e-06 1.1424223684349538e-06 4.973670658522419e-06 -2.3456960881169798e-05 -5.5892400680936419e-06 -2.3456960881169798e-05 0.00012152005057046991</location_covariance>
+            <orientation>1</orientation>
+            <reference x="119.153465857" y="31.623520850999999" z="62.052" yaw="101.99999999999999" pitch="0.099999999999993788" roll="-0" enabled="true" rotation_enabled="false"/>
+        </camera>
+        <camera id="583" sensor_id="3" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_NIR">
+            <orientation>1</orientation>
+        </camera>
+        <camera id="581" sensor_id="1" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_R">
+            <orientation>1</orientation>
+        </camera>
+        <camera id="582" sensor_id="2" component_id="0" master_id="580" label="DJI_20230901130208_0001_MS_RE">
+            <orientation>1</orientation>
+        </camera>
+    </cameras>
+    '''
+    ms = idp.Metashape(project_path=test_data.metashape.multi_spectral_psx, chunk_id=0)
+
+    assert len(ms.photos) == 936
+    assert ms.photos[0].label == 'DJI_20230901130734_0092_MS_G'
+    assert ms.photos[0].master_id is None
+    assert ms.photos[0].enabled == True
+    assert ms.photos[1].master_id == 0
+    assert ms.photos[1].enabled == True
+
+    assert ms.photos[932].enabled == False
+    assert ms.photos[933].enabled == False
+    assert ms.photos[934].enabled == False
+
+    assert ms.photos[935].enabled == False
+    assert ms.photos[935].label == "Calibration images-DJI_20230901132303_0001_MS_NIR"
+
+
+def test_multispectral_backward_projection():
+    ms = idp.Metashape(project_path=test_data.metashape.multi_spectral_psx, chunk_id=0)
+
+    roi = idp.ROI()
+    roi['XS_120'] = np.array(
+        [[7.04272962e+05, 3.50072277e+06, 4.22181206e+01],
+         [7.04273937e+05, 3.50072256e+06, 4.22181206e+01],
+         [7.04273765e+05, 3.50072176e+06, 4.22181206e+01],
+         [7.04272790e+05, 3.50072197e+06, 4.22181206e+01],
+         [7.04272962e+05, 3.50072277e+06, 4.22181206e+01]]
+    )
+    roi.crs = pyproj.CRS.from_epsg(32650)
+
+    out_dict = ms.back2raw(roi)
+
+    assert len(out_dict['XS_120']) == 91
+
+    ref_pos_g = np.array(
+        [[583.11737808, 969.81943293],
+         [586.18480254, 860.70755771],
+         [676.25815107, 863.64827397],
+         [673.13453445, 972.66183241],
+         [583.11737808, 969.81943293]])
+    
+    ref_pos_nir = np.array(
+        [[628.55271509, 987.39827669],
+         [631.62505771, 877.08295325],
+         [722.61540256, 880.07249764],
+         [719.48230069, 990.29585355],
+         [628.55271509, 987.39827669]])
+    
+    ref_pos_r = np.array(
+        [[602.64622072, 980.96274756],
+         [605.71834178, 871.10029114],
+         [696.34360418, 874.06535714],
+         [693.21241379, 983.84204687],
+         [602.64622072, 980.96274756]])
+
+    ref_pos_re = np.array(
+        [[603.19461648, 994.17375494],
+         [606.25404216, 884.29288646],
+         [696.88169458, 887.27163162],
+         [693.76184475, 997.06009674],
+         [603.19461648, 994.17375494]])
+
+    np.testing.assert_almost_equal(out_dict['XS_120']['DJI_20230901130226_0006_MS_G'],   ref_pos_g,   7)
+    np.testing.assert_almost_equal(out_dict['XS_120']['DJI_20230901130226_0006_MS_NIR'], ref_pos_nir, 7)
+    np.testing.assert_almost_equal(out_dict['XS_120']['DJI_20230901130226_0006_MS_R'],   ref_pos_r,   7)
+    np.testing.assert_almost_equal(out_dict['XS_120']['DJI_20230901130226_0006_MS_RE'],  ref_pos_re,  7)
