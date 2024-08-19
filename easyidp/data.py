@@ -296,7 +296,7 @@ class EasyidpDataSet():
 
         """
         self.name = name
-        self.grive_url = gdrive_url
+        self.gdrive_url = gdrive_url
         self.size = size
         self.data_dir = user_data_dir(self.name)
         self.zip_file = user_data_dir(self.name + ".zip")
@@ -347,13 +347,13 @@ class EasyidpDataSet():
             import gdown
             # google drive gdown_test.zip file is accessable
             # then try according google drive download link
-            if url_checker(self.grive_url):
-                output = gdown.download(url=self.grive_url, output=str(self.zip_file), quiet=False, fuzzy=True)
+            if url_checker(self.gdrive_url):
+                output = gdown.download(url=self.gdrive_url, output=str(self.zip_file), quiet=False, fuzzy=True)
             else:
                 # user can access Google Drive but maybe dataset zip file is missing, no waste AliYun OSS resource
                 # just mention user to double check google drive access
                 raise ConnectionError(
-                    f"Could not access google download link for dataset {self.name} from: \n{self.grive_url}.\n"
+                    f"Could not access google download link for dataset {self.name} from: \n{self.gdrive_url}.\n"
                     f"Please contact the maintainer via github if above link is broken."
                 )
         else:
