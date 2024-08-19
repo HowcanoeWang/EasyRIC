@@ -1,1 +1,2 @@
 pytest>=7.1.2  # fix pytest init error
+oss2 >= 2.18.6  # support AliYun OSS downloading
