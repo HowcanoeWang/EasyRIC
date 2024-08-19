@@ -242,7 +242,10 @@ class AliYunDownloader():
         import oss2
 
         self.tqdm_bar = None
-        oss2.resumable_download(self.bucket, dataset_name+'.zip', output, progress_callback=self.tqdm_progress_bar)
+        oss2.resumable_download(self.bucket, dataset_name+'.zip', output, 
+                                multiget_threshold=30000*1024,
+                                part_size=10000*1024,
+                                progress_callback=self.tqdm_progress_bar)
 
         # 下载完成后关闭进度条
         if self.tqdm_bar:
