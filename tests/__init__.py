@@ -9,7 +9,10 @@ out_dir = Path("./tests/out")
 if not out_dir.exists():
     out_dir.mkdir()
 
-out_folders = ["json_test", "pcd_test", "cv_test", "tiff_test", "visual_test", "back2raw_test"]
+out_folders = [
+    "json_test", "pcd_test", "cv_test", "tiff_test", 
+    "visual_test", "back2raw_test", "data_test"
+]
 
 for o in out_folders:
     sub_dir = out_dir / o

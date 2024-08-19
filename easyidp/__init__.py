@@ -1,6 +1,8 @@
 __version__ = "2.0.0"
 
 import os
+import sys
+import subprocess
 import warnings
 import numpy as np
 from pathlib import Path
@@ -239,3 +241,27 @@ from .geotiff import GeoTiff
 from .pix4d import Pix4D
 from .metashape import Metashape
 from .roi import ROI
+
+########################
+# Dataset region check #
+########################
+
+aliyun_down = None
+GOOGLE_AVAILABLE = True
+
+if not data._can_access_google_cloud():
+    GOOGLE_AVAILABLE = False
+
+    try:
+        import oss2
+    except ImportError:
+        print("oss2 is not installed. Installing now...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "oss2", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"])
+        print("oss2 has been installed.")
+
+        try:
+            import oss2
+        except ImportError:
+            raise ImportError(
+                "Failed to import oss2 after installation, please manually install `oss2` package by:\n"
+                "pip install oss2 -i https://pypi.tuna.tsinghua.edu.cn/simple")

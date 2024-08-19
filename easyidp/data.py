@@ -2,11 +2,13 @@ import os
 import sys
 import shutil
 import zipfile
-import gdown
 import requests
 import subprocess
 import webbrowser
+import tqdm
 from pathlib import Path
+
+GDOWN_TEST_URL = "https://drive.google.com/file/d/1yWvIOYJ1ML-UGleh3gT5b7dxXzBuSPgQ/view?usp=share_link"
 
 def user_data_dir(file_name=""):
     r"""Get OS specific data directory path for EasyIDP.
@@ -110,6 +112,9 @@ def url_checker(url):
         # print URL with Errs
         return False
 
+def _can_access_google_cloud():
+    return url_checker(GDOWN_TEST_URL)
+
 
 def download_all():
     """download all datasets
@@ -119,11 +124,136 @@ def download_all():
     test = TestData()
 
 
+class AliYunDownloader():
+
+    def __init__(self):
+        import oss2
+
+        access_url = "https://easyidp-data.oss-rg-china-mainland.aliyuncs.com/access.txt"
+
+        response = requests.get(access_url)
+
+        self.tqdm_bar = None
+
+        if response.status_code == 200:
+            content = response.text
+            access_key_secret, access_key_id = content.split('\r\n')
+
+            self.bucket_name = 'easyidp-data'
+            self.endpoint = 'oss-rg-china-mainland.aliyuncs.com'
+
+            self.bucket = oss2.Bucket(
+                oss2.Auth(access_key_id, access_key_secret), 
+                self.endpoint, self.bucket_name
+            )
+        else:
+            raise ConnectionRefusedError(
+                f"Failed to achieve AliYun Auth token, Please contact the maintainer via github.\n"
+                f"Status code: {response.status_code}"
+            )
+        
+    @staticmethod
+    def calculate_download_cost(dataset_name, dataset_size):
+
+        import re
+        import random
+
+        # Define the cost per GB
+        cost_per_gb = 0.12 + 0.5 + 0.1*random.random()
+        
+        # Regular expression to match the number and unit
+        pattern = re.compile(r'(\d+(\.\d+)?)([KMG]B)')
+        match = pattern.match(dataset_size)
+        
+        if not match:
+            raise ValueError(f"Invalid dataset size format of {dataset_name}.size = {dataset_size}")
+        
+        # Extract the value and unit
+        value = float(match.group(1))
+        unit = match.group(3)
+        
+        # Convert the value to GB
+        if unit == 'KB':
+            value_in_gb = value / (1024 * 1024)
+        elif unit == 'MB':
+            value_in_gb = value / 1024
+        elif unit == 'GB':
+            value_in_gb = value
+        else:
+            raise ValueError(f"Unsupported dataset size unit {dataset_size}")
+        
+        # Calculate the cost
+        cost = value_in_gb * cost_per_gb
+        return round(cost, 1)
+    
+    def download_auth(self, dataset_name, dataset_size):
+        money_cost = self.calculate_download_cost(dataset_name, dataset_size)
+        confirm_str = f"我已知悉此次下载会消耗{money_cost}元的下行流量费用"
+
+        # 插入不可见字符
+        invis_char = '\u200B'  # 零宽度空格
+        no_copy_confirm_str = confirm_str[0:10] + invis_char + confirm_str[10:20] + invis_char + confirm_str[20:]
+
+        # 使用ANSI转义序列设置颜色和格式
+        RED = '\033[91m'
+        BOLD = '\033[1m'
+        END = '\033[0m'
+
+        notification = (
+            f"{RED}{BOLD}请注意，中国大陆数据集下载使用作者私人搭建的阿里云文件存储服务，\n"
+            f"下载数据集会产生一定的流量费用(下载当前数据集{dataset_name}会消耗大约{money_cost}元)，\n"
+            f"此费用由作者本人负担，请勿在非必要的情况下重复下载或将此数据存储仓库用于其他用途\n\n"
+            f"如果同意以上内容，请在下方用输入法输入（复制无效)：\n{no_copy_confirm_str}{END}"
+        )
+        print(notification)
+
+        retry_counter = 0
+        matched = False
+
+        while retry_counter < 5:
+            user_confirm = input(">>> ")
+            if user_confirm == confirm_str:
+                matched = True
+                break
+            else:
+                print("输入的字符不匹配，请用输入法再次输入\n")
+                retry_counter += 1
+
+        if not matched:
+            raise PermissionError("尝试失败次数超过5次，请重新运行脚本")
+        
+        return matched
+        
+    def tqdm_progress_bar(self, consumed_bytes, total_bytes):
+        if total_bytes:
+            if self.tqdm_bar is None:
+                # 创建 tqdm 进度条实例
+                self.tqdm_bar = tqdm.tqdm(total=total_bytes, unit='B', unit_scale=True, desc='Downloading from Aliyun OSS')
+
+            # rate = int(100 * (float(consumed_bytes) / float(total_bytes)))
+            # 使用tqdm显示进度条
+            if self.tqdm_bar:
+                self.tqdm_bar.n = consumed_bytes
+                self.tqdm_bar.refresh()
+
+            # sys.stdout.flush()
+
+    def download(self, dataset_name, output):
+        import oss2
+
+        self.tqdm_bar = None
+        oss2.resumable_download(self.bucket, dataset_name+'.zip', output, progress_callback=self.tqdm_progress_bar)
+
+        # 下载完成后关闭进度条
+        if self.tqdm_bar:
+            self.tqdm_bar.close()
+
+
 class EasyidpDataSet():
     """The base class for Dataset
     """
 
-    def __init__(self, name="", url_list=[], size="",):
+    def __init__(self, name="", gdrive_url="", size="",):
         """The dataset has the following properties (almost in string type)
 
         name
@@ -166,7 +296,7 @@ class EasyidpDataSet():
 
         """
         self.name = name
-        self.url_list = url_list
+        self.grive_url = gdrive_url
         self.size = size
         self.data_dir = user_data_dir(self.name)
         self.zip_file = user_data_dir(self.name + ".zip")
@@ -181,7 +311,7 @@ class EasyidpDataSet():
         if not os.path.exists(self.data_dir):
             
             if not os.path.exists(self.zip_file):
-                out = self._download_data()
+                self._download_data()
 
             if os.path.exists(self.zip_file):
                 print("Successfully downloaded, start unzipping ...")
@@ -211,23 +341,34 @@ class EasyidpDataSet():
         """
         # Download; extract data to disk.
         # Raise an exception if the link is bad, or we can't connect, etc.
+        import easyidp as idp
 
-        if url_checker(self.url_list[0]):   # google drive 
-            output = gdown.download(url=self.url_list[0], output=str(self.zip_file), quiet=False, fuzzy=True)
-        elif url_checker(self.url_list[1]):  # cowtransfer
-            print(
-                f"Could not access to default google drive download link <{self.url_list[1]}>."
-                f"Please download the file in browser and unzip to the popup folder "
-                f"[{str(user_data_dir())}]"
-            )
-            # open url
-            webbrowser.open(self.url_list[1], new=0, autoraise=True)
-            # open folder in file explorer
-            show_data_dir()
+        if idp.GOOGLE_AVAILABLE:
+            import gdown
+            # google drive gdown_test.zip file is accessable
+            # then try according google drive download link
+            if url_checker(self.grive_url):
+                output = gdown.download(url=self.grive_url, output=str(self.zip_file), quiet=False, fuzzy=True)
+            else:
+                # user can access Google Drive but maybe dataset zip file is missing, no waste AliYun OSS resource
+                # just mention user to double check google drive access
+                raise ConnectionError(
+                    f"Could not access google download link for dataset {self.name} from: \n{self.grive_url}.\n"
+                    f"Please contact the maintainer via github if above link is broken."
+                )
         else:
-            raise ConnectionError("Could not find any downloadable link. Please contact the maintainer via github.")
+            # high possibility in China Mainland, use aliyun OSS for downloading
+            is_mainland_user = input("Google Drive Unaccessable, are you locate in China Mainland? (Y/N)\n>>> ")
+            if is_mainland_user in ["Yes", "Y", "y", "yes"]:
+                if idp.aliyun_down is None:
+                    idp.aliyun_down = AliYunDownloader()
 
-        return output
+                idp.aliyun_down.download_auth(dataset_name=self.name, dataset_size=self.size)
+                idp.aliyun_down.download(dataset_name=self.name, output=str(self.zip_file))
+            else:
+                raise ConnectionError(
+                    f"Could not find proper downloadable link for dataset {self.name}.\n"
+                    f"Please contact the maintainer via github.")
 
     def _unzip_data(self):
         """Unzip downloaded zip data and remove after decompression
@@ -240,7 +381,7 @@ class EasyidpDataSet():
             os.remove(self.zip_file)
         else:
             raise FileNotFoundError("Seems fail to unzip, please check whether the zip file is fully downloaded.")
-
+        
 
     class ReconsProj():
 
@@ -271,12 +412,9 @@ class Lotus(EasyidpDataSet):
     - **Outputs** : DOM, DSM, PCD
     """
 
-    url_list = [
-        "https://drive.google.com/file/d/1SJmp-bG5SZrwdeJL-RnnljM2XmMNMF0j/view?usp=share_link",
-        "https://fieldphenomics.cowtransfer.com/s/9a87698f8d3242"
-    ]
     name = "2017_tanashi_lotus"
     size = "3.3GB"
+    gdrive_url = "https://drive.google.com/file/d/1SJmp-bG5SZrwdeJL-RnnljM2XmMNMF0j/view?usp=share_link"
 
     def __init__(self):
         """
@@ -346,12 +484,10 @@ class ForestBirds(EasyidpDataSet):
     - **Software** : Metashape
     - **Outputs** : DOM, DSM, PCD
     """
-    url_list = [
-        "https://drive.google.com/file/d/1mXkzaoSSCAA87cxcMHKL6_VNlykRYxJr/view?usp=sharing",
-        "https://fieldphenomics.cowtransfer.com/s/7709bf78fd6145"
-    ]
+
     name = "2022_florida_forestbirds"
-    size = "5.4GB"
+    size = "1.97GB"
+    gdrive_url = "https://drive.google.com/file/d/1mXkzaoSSCAA87cxcMHKL6_VNlykRYxJr/view?usp=sharing"
 
     def __init__(self):
         """
@@ -390,33 +526,25 @@ class ForestBirds(EasyidpDataSet):
         self.metashape.dsm = self.data_dir / "Hidden_Little_03_24_2022_DEM.tif"
         
 class GDownTest(EasyidpDataSet):
-
-    url_list = [
-        "https://drive.google.com/file/d/1yWvIOYJ1ML-UGleh3gT5b7dxXzBuSPgQ/view?usp=share_link",
-        "https://fieldphenomics.cowtransfer.com/s/b5a469fab5dc48"
-    ]
+    """The data for Google Drive and Aliyun OSS download testing
+    """
 
     def __init__(self):
 
-        super().__init__("gdown_test", self.url_list, "0.2KB")
+        super().__init__("gdown_test", GDOWN_TEST_URL, "0.2KB")
         super().load_data()
 
         self.pix4d.proj = self.data_dir / "file1.txt"
         self.metashape.param = self.data_dir / "folder1"
 
 
-
 class TestData(EasyidpDataSet):
     """The data for developer and package testing.
     """
 
-    url_list = [
-        "https://drive.google.com/file/d/17b_17CofqIuCVOWMnD67_wOnWMtwF8bw/view?usp=share_link",
-        "https://fieldphenomics.cowtransfer.com/s/edaf0826b02548"
-    ]
-    
     name = "data_for_tests"
     size = "344MB"
+    gdrive_url = "https://drive.google.com/file/d/17b_17CofqIuCVOWMnD67_wOnWMtwF8bw/view?usp=share_link"
 
     def __init__(self, test_out="./tests/out"):
         """
