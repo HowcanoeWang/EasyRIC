@@ -256,7 +256,13 @@ if not data._can_access_google_cloud():
         import oss2
     except ImportError:
         print("oss2 is not installed. Installing now...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "oss2", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"])
+        result = subprocess.run(
+            [sys.executable, "-m", "pip", "install", "oss2", "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"],
+            stdout=sys.stdout,
+            stderr=sys.stderr
+        )
+        if result.returncode != 0:
+            raise RuntimeError(f"Failed to install oss2. pip exited with status {result.returncode}")
         print("oss2 has been installed.")
 
         try:
