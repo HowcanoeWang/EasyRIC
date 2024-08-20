@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 22:51+0900\n"
+"POT-Creation-Date: 2024-08-20 16:38+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../backgrounds/geotiff_transparency.rst:5
 msgid "GeoTiff Transparency"
@@ -197,11 +197,11 @@ msgstr "当然，用户也可以选取其他可以显示鼠标悬停坐标的软
 msgid "gimp_coord.jpg"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:107
+#: ../../backgrounds/roi_marking.rst:110
 msgid "2\\. Marking ROI on point cloud"
 msgstr "2. 点云的ROI标注"
 
-#: ../../backgrounds/roi_marking.rst:109
+#: ../../backgrounds/roi_marking.rst:112
 msgid ""
 "The open source software `CloudCompare <http://cloudcompare.org/>`_ is "
 "used to mark ROI on point clouds based on point picking and save picked "
@@ -213,11 +213,11 @@ msgstr ""
 "被用来标注点云的ROI并且把点保存为txt格式。用户也可以选择其他能够获取点坐标的3D软件，并且把点 ``x,y,z`` 保存为 "
 "``*.txt`` 文件。"
 
-#: ../../backgrounds/roi_marking.rst:113
+#: ../../backgrounds/roi_marking.rst:116
 msgid "ROI marking"
 msgstr "ROI标注"
 
-#: ../../backgrounds/roi_marking.rst:115
+#: ../../backgrounds/roi_marking.rst:118
 msgid ""
 "The steps to getting a txt file is as follows, by using ``pick several "
 "points`` tools to pick points and saving only ``x,y,z`` to txt file."
@@ -227,75 +227,74 @@ msgstr "下面的动图展示了获取txt文件的步骤，通过使用 ``多点
 msgid "cc_mark_txt.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:121
+#: ../../backgrounds/roi_marking.rst:124
 msgid ""
 "it is recommend to make only one ROI in one TXT file which benefits for "
 "ROI management, unless you have advanced python data processing skills to"
 " deal with mixed ROIs in one TXT file."
 msgstr "建议每个ROI单独保存为一个TXT文件，这有助于后续的文件管理。除非用户有进阶的Python数据处理基础，能够处理所有的ROI混合在一个文件中的情况。"
 
-#: ../../backgrounds/roi_marking.rst:124
+#: ../../backgrounds/roi_marking.rst:127
 msgid "ROI reading"
 msgstr "标注读入"
 
-#: ../../backgrounds/roi_marking.rst:126
+#: ../../backgrounds/roi_marking.rst:129
 msgid "The produced TXT file looks like this, including 4 vertex by (x, y, z)"
 msgstr "生成的TXT文件如下所示，包含了四个顶点的XYZ坐标"
 
-#: ../../backgrounds/roi_marking.rst:135
+#: ../../backgrounds/roi_marking.rst:138
 msgid "It can be loaded by EasyIDP directly:"
 msgstr "上面的文件可以直接被EasyIDP读取"
 
-#: ../../backgrounds/roi_marking.rst:150
+#: ../../backgrounds/roi_marking.rst:153
 msgid "The original text only has 4 points:"
 msgstr "原文件只有4个点"
 
-#: ../../backgrounds/roi_marking.rst:161
+#: ../../backgrounds/roi_marking.rst:164
 msgid ""
 "However, the definition of polygon requires the first point should be the"
 " last points, so the outputs of easyidp automatically add to the last "
 "line."
 msgstr "但是，根据多边形的定义，起始点和终止点应该是一样的。所以EasyIDP自动把起始点添加到了末尾。"
 
-#: ../../backgrounds/roi_marking.rst:163
+#: ../../backgrounds/roi_marking.rst:166
 msgid ""
 "Due to each txt file contains only one polygon, currently need user "
 "manual add to ``ROI`` object like follows:"
 msgstr "由于每个txt文件只包含一个多边形顶点，目前还需要用户按下面的方法手动创建 ``ROI`` 对象："
 
-#: ../../backgrounds/roi_marking.rst:170 ../../backgrounds/roi_marking.rst:249
+#: ../../backgrounds/roi_marking.rst:173 ../../backgrounds/roi_marking.rst:252
 msgid "待处理"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:172
+#: ../../backgrounds/roi_marking.rst:175
 msgid ""
 "In the future, EasyIDP may provide an API to load all txt files in one "
 "folder as ``ROI`` object directly."
 msgstr "EasyIDP之后可能会提供API来一次性加载某个文件夹下的所有txt文件作为一个 ``ROI`` 对象。"
 
-#: ../../backgrounds/roi_marking.rst:176
+#: ../../backgrounds/roi_marking.rst:179
 msgid "3\\. Marking ROI on GIS maps"
 msgstr "3. 地图上面的ROI标注"
 
-#: ../../backgrounds/roi_marking.rst:178
+#: ../../backgrounds/roi_marking.rst:181
+#, fuzzy
 msgid ""
 "The open source `QGIS <https://www.qgis.org/en/site>`_ is used to make "
 "``*.shp`` file of ROI on GIS maps, including DOM and DSM. Users can also "
 "select any other GIS software which produces standard ``*.shp`` file. The"
-" example map data can be downloaded from `here <https://github.com"
-"/UTokyo-FieldPhenomics-"
-"Lab/EasyIDP/releases/download/v0.1-alpha/lotus_170525.zip>`_:"
+" example map data can be found from ``easyidp.data.Lotus().pix4d.dom`` or"
+" ``easyidp.data.Lotus().metashape.dom``:"
 msgstr ""
 "开源的 `QGIS <https://www.qgis.org/en/site>`_ "
 "软件被用来制作正射图和地形图标注的Shp文件。用户也可以使用其他可以生成标准Shp文件的GIS软件来达到这个目的。示例用的地图可以从 "
-"`[这里下载] <https://github.com/UTokyo-FieldPhenomics-"
-"Lab/EasyIDP/releases/download/v0.1-alpha/lotus_170525.zip>`_"
+"``easyidp.data.Lotus().pix4d.dom`` 或 ``easyidp.data.Lotus().metashape.dom`` 获取"
 
-#: ../../backgrounds/roi_marking.rst:182
+#: ../../backgrounds/roi_marking.rst:185
 msgid "Add Polygons"
 msgstr "添加多边形"
 
-#: ../../backgrounds/roi_marking.rst:184
+#: ../../backgrounds/roi_marking.rst:187
 msgid "Firstly, loading the maps into QGIS software:"
 msgstr "首先，需要把地图载入进来"
 
@@ -303,7 +302,7 @@ msgstr "首先，需要把地图载入进来"
 msgid "qgis_load_map.png"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:190
+#: ../../backgrounds/roi_marking.rst:193
 msgid ""
 "And activate ``digitizing toolbar`` in ``view -> toolbars`` if not "
 "activated:"
@@ -313,7 +312,7 @@ msgstr "然后激活 ``数字化工具栏(digitizing toolbar)`` 如果之前没�
 msgid "qgis_activate_toolbar.png"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:196
+#: ../../backgrounds/roi_marking.rst:199
 msgid ""
 "Then clicking ``new shapefile layer`` in the ``Data Source Manager "
 "Toolbar``, specify the shp file name and path, changing geometry type to "
@@ -329,7 +328,7 @@ msgstr ""
 msgid "qgis_init_shp.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:201
+#: ../../backgrounds/roi_marking.rst:204
 msgid ""
 "Click ``Toggle Editing`` in the ``Digitizing toolbar``, then click ``add "
 "polygon feature`` button, the mouse will change to scope symbol, clicking"
@@ -344,15 +343,15 @@ msgstr ""
 msgid "qgis_add_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:206
+#: ../../backgrounds/roi_marking.rst:209
 msgid "Repeat previous steps until all ROI are marked."
 msgstr "重复以上步骤，直到地图中所有的ROI都被标上了"
 
-#: ../../backgrounds/roi_marking.rst:208
+#: ../../backgrounds/roi_marking.rst:211
 msgid "How to move or duplicate ROI"
 msgstr "如何移动或复制ROI"
 
-#: ../../backgrounds/roi_marking.rst:211
+#: ../../backgrounds/roi_marking.rst:214
 msgid ""
 "Activate ``Advanced digitizing toolbar`` and ``Attributes toolbar`` in "
 "``view -> toolbars`` if not activated"
@@ -360,7 +359,7 @@ msgstr ""
 "激活 ``高级数字化工具栏(Advanced digitizing toolbar)`` 和 ``属性工具栏(Attributes "
 "toolbar)`` 如果之前没有激活的话(在 ``view -> toolbars`` 里)"
 
-#: ../../backgrounds/roi_marking.rst:213
+#: ../../backgrounds/roi_marking.rst:216
 msgid ""
 "click ``Select feature by area or single click`` button in ``Attributes "
 "toolbar``, and select target roi (its vertex will change to red cross "
@@ -376,11 +375,11 @@ msgstr ""
 msgid "qgis_mv_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:219
+#: ../../backgrounds/roi_marking.rst:222
 msgid "How to make advanced shape ROI"
 msgstr "如何制作特定形状的ROI"
 
-#: ../../backgrounds/roi_marking.rst:222
+#: ../../backgrounds/roi_marking.rst:225
 msgid ""
 "Activate ``Shape digitizing toolbar`` in ``view -> toolbars`` and if not "
 "activated"
@@ -392,23 +391,23 @@ msgstr ""
 msgid "qgis_adv_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:227
+#: ../../backgrounds/roi_marking.rst:230
 msgid ""
 "It provides advanced options for circular string, add circle, add "
 "ellipse, add rectangle, and add regular polygon."
 msgstr "提供了创建更高级的圆弧、圆、椭圆、矩形(直角)和常规多边形的工具"
 
-#: ../../backgrounds/roi_marking.rst:231
+#: ../../backgrounds/roi_marking.rst:234
 msgid "Read shp file"
 msgstr "导入shp文件"
 
-#: ../../backgrounds/roi_marking.rst:233
+#: ../../backgrounds/roi_marking.rst:236
 msgid ""
 "In this example, the `plots.shp` file using default projection system "
 "EPSG 4326 which default value is (latitude, longitude)."
 msgstr "在这个示例里，``plots.shp`` 用的是默认的经纬度坐标系统"
 
-#: ../../backgrounds/roi_marking.rst:250
+#: ../../backgrounds/roi_marking.rst:253
 msgid ""
 "The shp file only provides 2D coordinates, while 3D geography coordinates"
 " is needed for further calculation. The DSM can provides the height "
@@ -443,43 +442,43 @@ msgstr "创建虚拟环境"
 msgid "Activate virtual env"
 msgstr "激活虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:42 ../../backgrounds/virtualenv.rst:87
+#: ../../backgrounds/virtualenv.rst:47 ../../backgrounds/virtualenv.rst:92
 msgid "Install EasyIDP package"
 msgstr "安装EasyIDP"
 
-#: ../../backgrounds/virtualenv.rst:50
+#: ../../backgrounds/virtualenv.rst:55
 msgid "Exit the virtual env"
 msgstr "退出虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:59
+#: ../../backgrounds/virtualenv.rst:64
 msgid "Delete the virtual env"
 msgstr "删除虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:61
+#: ../../backgrounds/virtualenv.rst:66
 msgid ""
 "Delete the folder ``C:\\path\\to\\env\\folder`` directly to delete "
 "environment"
 msgstr "直接删除 ``C:\\path\\to\\env\\folder`` 文件夹即可删除虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:68
+#: ../../backgrounds/virtualenv.rst:73
 msgid "Conda"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:71
+#: ../../backgrounds/virtualenv.rst:76
 msgid "Create conda env"
 msgstr "创建Conda虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:78
+#: ../../backgrounds/virtualenv.rst:83
 msgid "Activate conda env"
 msgstr "激活Conda虚拟环境"
 
-#: ../../backgrounds/virtualenv.rst:89
+#: ../../backgrounds/virtualenv.rst:94
 msgid ""
 "Due to the EasyIDP package have not been published to Conda forge, you "
 "could only use pip to install."
 msgstr "由于EasyIDP并没有发布到Conda源上，所以还只能使用pip来进行安装"
 
-#: ../../backgrounds/virtualenv.rst:96
+#: ../../backgrounds/virtualenv.rst:101
 msgid ""
 "If you using pip in conda virtual envs, other packages should also "
 "installed by pip. Do not use ``conda install`` and ``pip install`` at he "
@@ -488,10 +487,10 @@ msgstr ""
 "如果你在Conda环境中使用pip进行包管理，这个环境下其他的包也应该使用pip来安装，不要将 ``conda install`` 和 ``pip"
 " install`` 同时混用"
 
-#: ../../backgrounds/virtualenv.rst:99
+#: ../../backgrounds/virtualenv.rst:104
 msgid "Exit conda env"
 msgstr "退出Conda环境"
 
-#: ../../backgrounds/virtualenv.rst:107
+#: ../../backgrounds/virtualenv.rst:112
 msgid "Delete conda env"
 msgstr "删除Conda环境"

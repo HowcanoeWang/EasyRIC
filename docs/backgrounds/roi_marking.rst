@@ -178,7 +178,7 @@ Due to each txt file contains only one polygon, currently need user manual add t
 3\. Marking ROI on GIS maps
 ===========================
 
-The open source `QGIS <https://www.qgis.org/en/site>`_ is used to make ``*.shp`` file of ROI on GIS maps, including DOM and DSM. Users can also select any other GIS software which produces standard ``*.shp`` file. The example map data can be downloaded from `here <https://github.com/UTokyo-FieldPhenomics-Lab/EasyIDP/releases/download/v0.1-alpha/lotus_170525.zip>`_:
+The open source `QGIS <https://www.qgis.org/en/site>`_ is used to make ``*.shp`` file of ROI on GIS maps, including DOM and DSM. Users can also select any other GIS software which produces standard ``*.shp`` file. The example map data can be found from ``easyidp.data.Lotus().pix4d.dom`` or ``easyidp.data.Lotus().metashape.dom``:
 
 
 Add Polygons
