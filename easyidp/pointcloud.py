@@ -1216,12 +1216,18 @@ def write_laz(laz_path, points, colors, normals=None, offset=np.array([0., 0., 0
     las = laspy.LasData(header)
 
     # add values
-    las.points['x'] = points[:, 0]   # here has the convert to int32 precision loss
-    las.points['y'] = points[:, 1]
+    # in previous laspy, here has the convert to int32 precision loss
+    # in laspy 2.5.4, dtype changed to float 64, fixed this change
+    las.points['x'] = points[:, 0]  
+    las.points['y'] = points[:, 1]   
     las.points['z'] = points[:, 2]
 
-    las.points['red'] = colors[:,0] * 256  # convert to uint16
-    las.points['green'] = colors[:,1] * 256 
+    # colors.dtype -> uint8; then convert to uint16
+    #   numpy 2.0 -> uint8 can not convert to uint16 by `colors[:,0] * 256`
+    #                need do astype first
+    colors = colors.astype(np.uint16)
+    las.points['red'] = colors[:,0] * 256    
+    las.points['green'] = colors[:,1] * 256  
     las.points['blue'] = colors[:,2] * 256
 
 
