@@ -8,241 +8,826 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-24 20:37+0900\n"
+"POT-Creation-Date: 2024-08-20 13:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: ../../jupyter/crop_and_backward.ipynb:9
-msgid "Crop and backward projection"
+#: ../../jupyter/backward_projection.ipynb:9
+#, fuzzy
+msgid "Backward Projection"
 msgstr "クロップ＆逆投影"
 
-#: ../../jupyter/crop_and_backward.ipynb:21
-msgid "Package and Data Prepare"
+#: ../../jupyter/backward_projection.ipynb:11
+msgid ""
+"The example explains how to use EasyIDP to find the corresponding "
+"position of ROI on the origial UAV images."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:23
+#: ../../jupyter/backward_projection.ipynb:17
+msgid "|ab4b88df68534ecbae55217f7ae8d503|"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:23
+#: ../../jupyter/backward_projection.ipynb:96
+#: ../../jupyter/backward_projection.ipynb:635
+#: ../../jupyter/backward_projection.ipynb:1064
+#: ../../jupyter/crop_outputs.ipynb:23 ../../jupyter/crop_outputs.ipynb:96
+#: ../../jupyter/get_z_from_dsm.ipynb:23 ../../jupyter/load_roi.ipynb:23
+msgid "lotus plot"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:36 ../../jupyter/load_roi.ipynb:36
+msgid "Package and data prepare"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:38
 msgid "The most common way to import easyidp package is:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:44
-msgid "And then using the Lotus dataset as example"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:46
+#: ../../jupyter/backward_projection.ipynb:61
+#: ../../jupyter/crop_outputs.ipynb:61
 msgid ""
-"It will download 3.3GB from Google Drive for the first time, please "
-"ensure your have enough disk space (>10GB) in your system cache disk."
+"If you run for the first time, it will download 3.3GB dataset "
+"automatically from Google Drive, please refer to `Data "
+"<../python_api/data.rst>`__ for more details."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:48
-msgid "You can using the following code to check where it downloads to:"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:54
-msgid "It will call your system default file manager to show the folder."
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:75
-msgid ""
-"If you run for the first time, it will download dataset automatically "
-"from google drive:"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:85
-msgid "Then the used file path can be obtained by:"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:96
-msgid "Please check ``Python API > Data`` for more details."
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:108
+#: ../../jupyter/backward_projection.ipynb:73
 msgid "Read ROI from Shapefile"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:110
+#: ../../jupyter/backward_projection.ipynb:75
 msgid ""
 "Then open the shapefile ``plot.shp``, the shp file looks like (red "
 "polygons):"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:-1
-msgid "lotus_shp"
+#: ../../jupyter/backward_projection.ipynb:90
+msgid "|eb7d116f9684456799a13d7648778630|"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:124
-msgid "First, need to check which column of shapefile should be used as key:"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:193
-msgid ""
-"We can see, it only contains one column (-1 is the index), here we pass "
-"``0`` or ``\"plot_id\"`` to ``name_field`` param to set it as index."
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:264
+#: ../../jupyter/backward_projection.ipynb:168
 msgid "Then check if it loads as expected:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:357
-msgid "Or you can also reference it by index:"
+#: ../../jupyter/backward_projection.ipynb:290
+msgid "Get height (z) values from DSM"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:415
-msgid "Then get the height value from DSM"
+#: ../../jupyter/backward_projection.ipynb:292
+msgid ""
+"The ROI from shapefile is only 2D coordinate, however, to do backward "
+"projection, the ROI should be 3D coordainte, the missing height values "
+"can be obtianed from DSM"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:500
+#: ../../jupyter/backward_projection.ipynb:298
+#: ../../jupyter/crop_outputs.ipynb:571
+msgid "Future work"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:300
+msgid ""
+"Getting Z values from point cloud will be supported in the future, in "
+"this case, if only need backward projection (do image analyze on origial "
+"images instead of low quality geotiff), the 3D reconstuction can stop at "
+"making dense point cloud, no need to run the later DOM and DSM step."
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:350
+msgid "And check the values of ROI"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:471
 msgid ""
 "We can notice, the roi x and y values also changed. Because the ROI shp "
-"geo-coord is EPSG::4326 while the DSM is EPSG::32654"
+"geo-coord is EPSG::4326 while the DSM is EPSG::32654."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:502
-msgid "if you want keep the x and y value, you can:"
+#: ../../jupyter/backward_projection.ipynb:477
+#: ../../jupyter/crop_outputs.ipynb:282 ../../jupyter/crop_outputs.ipynb:362
+#: ../../jupyter/crop_outputs.ipynb:608
+msgid "See also"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:514
+#: ../../jupyter/backward_projection.ipynb:479
 msgid ""
-"But it is highly recommended to use the same CRS with the DOM/DSM, "
-"otherwise will raise ValueErrors in the later use."
+"For more details about the controls to this function, please refer to "
+"`Get Height(z) Values from DSM <get_z_from_dsm.ipynb>`__"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:545
-msgid "Read and crop DOM"
+#: ../../jupyter/backward_projection.ipynb:495
+#, fuzzy
+msgid "Read 3D reconstuction project and backward projection"
+msgstr "クロップ＆逆投影"
+
+#: ../../jupyter/backward_projection.ipynb:497
+msgid "For metashape project:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:566
-msgid "Check the values:"
+#: ../../jupyter/backward_projection.ipynb:518
+msgid "For pix4d project:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:684
-msgid "Crop the DOM by ROI:"
+#: ../../jupyter/backward_projection.ipynb:541
+#, fuzzy
+msgid "And then do the backward projection by:"
+msgstr "クロップ＆逆投影"
+
+#: ../../jupyter/backward_projection.ipynb:591
+msgid "or"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:757
-msgid "It has the same key as the ROI."
+#: ../../jupyter/backward_projection.ipynb:611
+#: ../../jupyter/backward_projection.ipynb:1040
+msgid "Note"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:759
-msgid "And to visualize the cropped results:"
+#: ../../jupyter/backward_projection.ipynb:613
+#: ../../jupyter/backward_projection.ipynb:1042
+msgid "You can save the results (json and cropped png) to given folder by:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:858
+#: ../../jupyter/backward_projection.ipynb:619
+#: ../../jupyter/backward_projection.ipynb:1048
+msgid "And will get the following results in the folder:"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:625
+msgid "|2ae8c77ac462495c8c24fe86c5bb0e82|"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:647
 msgid ""
-"It you want to save the cropped GeoTiff, please pass the ``save_folder`` "
-"parameter when cropping"
+"The structure of output ``img_dict`` is 2 layers dictionary. The first "
+"layer is roi id, the second layer is image name "
+"(``out_dict['roi_id']['image_name']``)."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:864
+#: ../../jupyter/backward_projection.ipynb:649
 msgid ""
-"It will save all cropped sections to GeoTiff files with geo-offset (you "
-"can overlap the cropped DOM perfectly on the original DOM)"
+"You can find all available images with specified roi (plot) (e.g. roi "
+"named ‘N1W1’) by:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:866
-msgid ""
-"However, you can not save the outputs ``dom_parts[\"N1W1\"]`` with geo-"
-"offset, it can only be save as a common image via ``plt.imsave()``."
+#: ../../jupyter/backward_projection.ipynb:676
+msgid "For example, find the roi named ‘N1W1’ on image ‘IMG_3457’ by:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:878
-msgid "Read and crop point cloud"
+#: ../../jupyter/backward_projection.ipynb:734
+msgid "This is the 2D coordinates that roi on the image pixels"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:880
-msgid ""
-"Crop the PCD by ROI: (will cost a half minuts to operate on the large "
-"point cloud)"
+#: ../../jupyter/backward_projection.ipynb:736
+msgid "The recommended ‘for loops’ for itering items:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1074
-msgid ""
-"Similarly, you can pass the ``save_folder`` parameter to save the cropped"
-" point cloud"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:1090
-msgid "Read SfM project and backward projection"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:1102
-msgid "For Metashape"
-msgstr ""
-
-#: ../../jupyter/crop_and_backward.ipynb:1455
+#: ../../jupyter/backward_projection.ipynb:764
 msgid "Preview the results:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1501
-msgid "For Pix4D"
+#: ../../jupyter/backward_projection.ipynb:818
+#: ../../jupyter/backward_projection.ipynb:1209
+msgid "Or check all results:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1847
-msgid "Check the results:"
+#: ../../jupyter/backward_projection.ipynb:923
+#: ../../jupyter/backward_projection.ipynb:1314
+msgid ""
+"Recommend using ``ms.show_roi_on_img(..., save_as=\"preview_all.png\")`` "
+"to saving to local disk and checking the clear figure."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1893
-msgid "Find the best backword image"
+#: ../../jupyter/backward_projection.ipynb:935
+msgid "Find the best backward image"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1895
+#: ../../jupyter/backward_projection.ipynb:937
 msgid ""
 "You can notice that for each ROI, it will backword projected to several "
 "raw images:"
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:1941
+#: ../../jupyter/backward_projection.ipynb:983
 msgid ""
 "How to find the best 3 or 5 images? Here you can calculate the distance "
 "from the image to the ROI, here we assume the shorter the better (idealy,"
 " UAV image just above the ROI region, the ROI is in the image center)."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:2068
+#: ../../jupyter/backward_projection.ipynb:1054
+msgid "|6ca31a9fcc4d496293e850a048ff7422|"
+msgstr ""
+
+#: ../../jupyter/backward_projection.ipynb:1153
 msgid ""
 "Here is the best 3 image that match “distance from ROI to image” < 10m, "
 "and the first one is the closest."
 msgstr ""
 
-#: ../../jupyter/crop_and_backward.ipynb:2070
+#: ../../jupyter/backward_projection.ipynb:1155
 msgid "Check the result:"
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:9
-msgid "Forward ROI from raw to DOM"
+#: ../../jupyter/crop_outputs.ipynb:9
+msgid "Crop DOM/DSM/PCD by ROI"
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:11
+#: ../../jupyter/crop_outputs.ipynb:11
 msgid ""
-"It is a often case that the DOM has lower quality than the original raw "
-"images. And then we want link the image analysis resutls on the good "
-"quality raw image back to the bad quality DOM. This example demonstrats "
-"how this can be done by EasyIDP."
+"Using region of interest (ROI, e.g. plot boundary), cropping each of them"
+" from large digital orthomosaic (DOM), digital surface model (DSM), and "
+"point cloud of whole field, without using any GIS or point cloud "
+"processing software."
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:13
-msgid "Firstly, import the package and using our lotus dataset"
+#: ../../jupyter/crop_outputs.ipynb:17
+msgid "|ab4ac817c101442987d00d4e7e66b56e|"
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:36
-msgid "Then load the DOM and metashape project into EasyIDP objects"
+#: ../../jupyter/crop_outputs.ipynb:36
+msgid "Package and data prepare."
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:60
-msgid "Split dom to several grids with buffer"
+#: ../../jupyter/crop_outputs.ipynb:38
+msgid "The easiest way to import easyidp package and using the demo exmaple is:"
 msgstr ""
 
-#: ../../jupyter/raw2dom.ipynb:62
+#: ../../jupyter/crop_outputs.ipynb:73
+msgid "Read ROI from shapefile"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:75
 msgid ""
-"Instead of forward projecting the results from raw to DOM directly. Here "
-"we do the backwad projection from DOM to raw, and calculate the "
-"transformation matrix of current grid, then calculate the inverse matrix "
-"to get results from raw to DOM."
+"The following code will load and open the plot boundary shapefile in the "
+"Lotus Dataset, the shp file looks like (red polygons):"
 msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:90
+msgid "|a7351b371efc48f8a2787d7353f88b95|"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:284
+msgid ""
+"For more details about the parameter when loading shapefile, please refer"
+" to `Load ROI from shapefile <load_roi.ipynb>`__, or python API "
+"`easyidp.ROI <../python_api/manualdoc/easyidp.roi.ROI.rst>`__, and "
+"`easyidp.shp.read_shp "
+"<../python_api/autodoc/easyidp.shp.read_shp.rst>`__."
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:300
+msgid "Read and crop geotiff (DOM/DSM)"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:302
+msgid "First, open the DOM geotiff file by:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:364
+msgid ""
+"The GeoTiff is easyidp defined class contains several required "
+"information. Please check python API `easyidp.GeoTiff "
+"<../python_api/autodoc/easyidp.geotiff.GeoTiff.rst>`__ for more "
+"information"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:379
+msgid ""
+"However, in this case, the ROI and GeoTiff do not share the same geo-"
+"coordinate:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:427
+msgid ""
+"Hence need to transform the ROI to the same CRS as GeoTiff, for more "
+"details please refer `Load ROI from shapefile <load_roi.ipynb#Transform-"
+"between-CRS>`__"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:448
+msgid ""
+"Then using the following function to crop each ROI (plot) from whole "
+"field GeoTIff:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:494
+msgid ""
+"The output ``dom_parts`` is a dictionary, using plot label as keys and "
+"cropped imarray as values:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:559
+msgid ""
+"It you want to save the cropped GeoTiff, please pass the ``save_folder`` "
+"parameter when cropping"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:565
+msgid ""
+"It will save all cropped sections to GeoTiff files with geo-offset (you "
+"can overlap the cropped DOM almost perfectly on the original DOM)"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:573
+msgid ""
+"Currently can not just save the single output ``dom_parts[\"N1W1\"]`` to "
+"standard GeoTiff file with correct geo-position without previoud "
+"``save_folder`` batch saving, but in the future will support save such "
+"file directly via "
+"``dom_part[\"N1W1\"].save(\"path\\to\\save\\N1W1.tif\")``"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:588
+msgid "The step to crop DSM is the same as DOM, ignored here."
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:600
+msgid "Read and crop point cloud"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:602
+msgid "The point cloud also use the same process like GeoTIff"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:610
+msgid ""
+"The PointCloud is easyidp defined class contains several required "
+"information. Please check python API `easyidp.PointCloud "
+"<../python_api/autodoc/easyidp.pointcloud.PointCloud.rst>`__ for more "
+"information"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:635
+msgid "Check the point cloud values:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:702
+msgid "And cropping:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:708 ../../jupyter/load_roi.ipynb:390
+#: ../../jupyter/load_roi.ipynb:713 ../../jupyter/load_roi.ipynb:2244
+msgid "Caution"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:710
+msgid "Please ensure the same CRS between ROI and PointCloud."
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:760
+msgid ""
+"The output ``pcd_parts`` is a dictionary, using plot label as keys and "
+"cropped point cloud as values:"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:827
+msgid ""
+"Similarly, you can pass the ``save_folder`` parameter to save the cropped"
+" point cloud"
+msgstr ""
+
+#: ../../jupyter/crop_outputs.ipynb:833
+msgid "Or your can save just one point cloud by:"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:9
+msgid "Forward Projection (simple draft demo)"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:130
+msgid "Then check the shp columns, name using [id] as the key of ROI"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:385
+msgid "Check the results of DOM grid"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:502
+msgid "Check by QGIS:"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:504
+msgid "|4174f44172bf46ddafc22017afe8d957|"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:506
+msgid "Snipaste_2022-09-10_13-01-25"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:518
+#, fuzzy
+msgid "backward projection to raw images"
+msgstr "クロップ＆逆投影"
+
+#: ../../jupyter/forward_projection.ipynb:740
+msgid "Then find the closest raw image"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:863
+msgid "Check the ROI on the DOM and on the raw respectively."
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:928
+msgid "For example, you detect the results on DJI_0500 is"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:952
+msgid "Then check the bbox on the raw:"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:1016
+msgid "Then calculate the inverse transform matrix from raw to DOM:"
+msgstr ""
+
+#: ../../jupyter/forward_projection.ipynb:1253
+msgid "Preview the results on DOM:"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:9
+msgid "Get Height (Z) Values from DSM"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:11
+msgid ""
+"This part introduces the parameters and controls to get height (or z) "
+"values for ROI from Digital Surface Model (DSM) GeoTiff."
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:17
+msgid "|f326b319b71b4b0e8638aead8fffcac5|"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:35
+msgid "To be continued"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:46
+msgid "keep_crs and warnings"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:57
+msgid ""
+"We can notice, the roi x and y values also changed. Because the ROI shp "
+"geo-coord is EPSG::4326 while the DSM is EPSG::32654"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:59
+msgid "if you want keep the x and y value, you can:"
+msgstr ""
+
+#: ../../jupyter/get_z_from_dsm.ipynb:71
+msgid ""
+"But it is highly recommended to use the same CRS with the DOM/DSM, "
+"otherwise will raise ValueErrors in the later use."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:9
+msgid "Load ROI from shapefile"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:11
+msgid ""
+"This example shows how to open the shapefile ( ``*.shp`` ) as the "
+"``easyidp.ROI`` objects."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:17
+msgid "|772ba40e65734dde83745cd26045ccca|"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:38
+msgid "Using the following code to load easyidp package and demo dataset"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:61
+msgid ""
+"If you run for the first time, it will download around 400MB dataset "
+"automatically from Google Drive, please refer to `Data "
+"<../python_api/data.rst>`__ for more details."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:63
+msgid "Here are thee demo shapefiles used in this documents are:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:65
+msgid "``test_data.shp.lotus_shp``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:66
+msgid "``test_data.shp.utm53n_shp``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:67
+msgid "``test_data.shp.complex_shp``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:69
+msgid "Each variable provides the path to the ``*.shp`` file:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:116
+msgid "Deal with ESPG:4326 (longitude, latitude)"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:118
+msgid "The ``lotus_shp`` used the EPGS:4326 as the Geo-projection coordinates"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:189
+msgid ""
+"Using this method to check the CRS (geo-projection coordinate) for that "
+"shapefile:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:265
+msgid "And we can check the plot polygon boundary values by:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:392
+msgid ""
+"In the easyidp package, the ROI order is ``(longitude, latitude)``, while"
+" for some other packages like ``pyproj``, ``shapely``, may using the "
+"``(latitude, longitude)`` order, please pay attention to it when "
+"transfering between packages"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:408
+msgid "Deal with UTM/Zone geo coordainte"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:410
+msgid ""
+"The ``utm53_shp`` using another geo coordinate other than ``(longitude, "
+"latitude)``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:481
+msgid "Then we can check the CRS (geo-coordinate) of this file:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:563
+msgid "And the plot polygon coordinate values:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:684
+msgid ""
+"Under this coordinate, the unit is meter, and the X (the first column) is"
+" the East-West (horizontal) direction, while the Y (the second column) is"
+" the North-Sourth (vertical) direction. The axis order is the same with "
+"``(longitude, latitude)``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:696
+msgid "Transform between CRS"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:698
+msgid ""
+"In some cases, for example, not the same person who prepare the DOM and "
+"shapefile, they do not share the same coordinate and have very different "
+"polygon boundary values. So they can not put together directly and need "
+"convertion."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:715
+msgid ""
+"Although the EasyIDP support the transformation between different CRS, it"
+" may have precision loss and require some computation time if the roi "
+"number is huge."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:717
+msgid ""
+"It is recommended to ensure the shp and DOM/DSM/PCD share the same CRS "
+"when preparing them."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:732
+msgid ""
+"For example, in the lotus case, it uses the EPSG:4326, while the DOM/DSM "
+"uses the UTM/Zone."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:883
+msgid ""
+"Hence need to do the CRS transformation to match them. It is more "
+"recommended to transfer ROI because it is only the coordinate numbers, "
+"much easier to transfer than the GeoTiff are pixel matrix."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:885
+msgid "Before transfer, the plot coordinate looks like this:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1006
+msgid "And apply the transfer:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1027
+msgid "Now the CRS of ROI has been changed:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1112
+msgid "And also the coordinate values:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1234
+msgid "Change the ROI labels"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1236
+msgid "You have must notice the ``name_field`` value when opening the shapefile"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1242
+msgid ""
+"In this section, more details about this parameter and other controls "
+"will be introduced."
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1253
+msgid ""
+"For some shapefile, it is not encoded in ``utf-8``, and the default "
+"loading may fail:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1357
+msgid ""
+"By default, if ``name_field`` not given, it will using the first number "
+"id as label"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1591
+msgid "We can specify the ‘MASSIFID’ as the label instead"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1662
+msgid "Or the equal effects by colume id:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1668 ../../jupyter/load_roi.ipynb:1890
+msgid "Now the label has been changed:"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1813
+msgid ""
+"Or you can combine several columns together by giving a list "
+"``name_field=['CROPTYPE', 'MASSIFID']``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:1884
+msgid "Or the equal effects by a list of colume id ``name_field=[2, 1]``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:2035
+msgid "Or even add the colume title into it by giving ``include_title=True``"
+msgstr ""
+
+#: ../../jupyter/load_roi.ipynb:2246
+msgid ""
+"Only the colume with unique values should be used as the ROI label, "
+"otherwise has the risk that later duplicated label overwrites previous "
+"label. The easyidp could handle such case and raise an Error."
+msgstr ""
+
+#~ msgid "Package and Data Prepare"
+#~ msgstr ""
+
+#~ msgid "And then using the Lotus dataset as example"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It will download 3.3GB from Google "
+#~ "Drive for the first time, please "
+#~ "ensure your have enough disk space "
+#~ "(>10GB) in your system cache disk."
+#~ msgstr ""
+
+#~ msgid "You can using the following code to check where it downloads to:"
+#~ msgstr ""
+
+#~ msgid "It will call your system default file manager to show the folder."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you run for the first time, "
+#~ "it will download dataset automatically "
+#~ "from google drive:"
+#~ msgstr ""
+
+#~ msgid "Then the used file path can be obtained by:"
+#~ msgstr ""
+
+#~ msgid "Please check ``Python API > Data`` for more details."
+#~ msgstr ""
+
+#~ msgid "lotus_shp"
+#~ msgstr ""
+
+#~ msgid "First, need to check which column of shapefile should be used as key:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We can see, it only contains one"
+#~ " column (-1 is the index), here "
+#~ "we pass ``0`` or ``\"plot_id\"`` to "
+#~ "``name_field`` param to set it as "
+#~ "index."
+#~ msgstr ""
+
+#~ msgid "Or you can also reference it by index:"
+#~ msgstr ""
+
+#~ msgid "Then get the height value from DSM"
+#~ msgstr ""
+
+#~ msgid "Read and crop DOM"
+#~ msgstr ""
+
+#~ msgid "Check the values:"
+#~ msgstr ""
+
+#~ msgid "Crop the DOM by ROI:"
+#~ msgstr ""
+
+#~ msgid "It has the same key as the ROI."
+#~ msgstr ""
+
+#~ msgid "And to visualize the cropped results:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It will save all cropped sections "
+#~ "to GeoTiff files with geo-offset "
+#~ "(you can overlap the cropped DOM "
+#~ "perfectly on the original DOM)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "However, you can not save the "
+#~ "outputs ``dom_parts[\"N1W1\"]`` with geo-"
+#~ "offset, it can only be save as "
+#~ "a common image via ``plt.imsave()``."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Crop the PCD by ROI: (will cost"
+#~ " a half minuts to operate on "
+#~ "the large point cloud)"
+#~ msgstr ""
+
+#~ msgid "Read SfM project and backward projection"
+#~ msgstr ""
+
+#~ msgid "For Metashape"
+#~ msgstr ""
+
+#~ msgid "For Pix4D"
+#~ msgstr ""
+
+#~ msgid "Check the results:"
+#~ msgstr ""
+
+#~ msgid "Find the best backword image"
+#~ msgstr ""
+
+#~ msgid "Forward ROI from raw to DOM"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "It is a often case that the "
+#~ "DOM has lower quality than the "
+#~ "original raw images. And then we "
+#~ "want link the image analysis resutls "
+#~ "on the good quality raw image back"
+#~ " to the bad quality DOM. This "
+#~ "example demonstrats how this can be "
+#~ "done by EasyIDP."
+#~ msgstr ""
+
+#~ msgid "Firstly, import the package and using our lotus dataset"
+#~ msgstr ""
+
+#~ msgid "Then load the DOM and metashape project into EasyIDP objects"
+#~ msgstr ""
+
+#~ msgid "Split dom to several grids with buffer"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Instead of forward projecting the "
+#~ "results from raw to DOM directly. "
+#~ "Here we do the backwad projection "
+#~ "from DOM to raw, and calculate the"
+#~ " transformation matrix of current grid, "
+#~ "then calculate the inverse matrix to "
+#~ "get results from raw to DOM."
+#~ msgstr ""
 

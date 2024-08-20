@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-06 19:18+0900\n"
+"POT-Creation-Date: 2024-08-20 13:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../install.rst:5
 msgid "Install EasyIDP"
@@ -51,41 +51,49 @@ msgstr ""
 msgid "Windows 11 (64-bit)"
 msgstr ""
 
+#: ../../install.rst:21
+msgid "macOS 10.15+"
+msgstr ""
+
 #: ../../install.rst:22
+msgid "Manjaro"
+msgstr ""
+
+#: ../../install.rst:24
 msgid ""
 "The following operating system should also works, but have not been "
 "tested:"
 msgstr ""
 
-#: ../../install.rst:24
+#: ../../install.rst:26
 msgid "Ubuntu 18.04+"
 msgstr ""
 
-#: ../../install.rst:25
-msgid "macOS 10.15+"
+#: ../../install.rst:27
+msgid "ArchLinux"
 msgstr ""
 
-#: ../../install.rst:27
+#: ../../install.rst:30
 msgid ""
 "Using this package requires basic Python programming knowledge, including"
 " basic python gramma and package installation."
 msgstr ""
 
-#: ../../install.rst:31
+#: ../../install.rst:34
 msgid "Install from PyPI"
 msgstr ""
 
-#: ../../install.rst:33
+#: ../../install.rst:36
 msgid ""
 "Here assuming the user has python3 and pip installed in the computer, and"
 " in the command line, the following operation works:"
 msgstr ""
 
-#: ../../install.rst:42
+#: ../../install.rst:45
 msgid "Then install the package by:"
 msgstr ""
 
-#: ../../install.rst:50
+#: ../../install.rst:53
 msgid ""
 "In general, we recommend using a `virtual environment <https://docs"
 ".python-guide.org/dev/virtualenvs/>`_ or `conda environment "
@@ -93,56 +101,56 @@ msgid ""
 "conflict with your local environment."
 msgstr ""
 
-#: ../../install.rst:54
+#: ../../install.rst:57
 msgid "Please refer :doc:`backgrounds/virtualenv` for more details."
 msgstr ""
 
-#: ../../install.rst:56
+#: ../../install.rst:59
 msgid ""
 "For Linux users, depending on the configurations, ``pip3`` may be needed "
 "for Python 3, or the ``--user`` option may need to be used to avoid "
 "permission issues. For example:"
 msgstr ""
 
-#: ../../install.rst:70
+#: ../../install.rst:73
 msgid ""
 "For users in China, it is recommended to use Tsinghua source to "
 "accelerate the download speed:"
 msgstr ""
 
-#: ../../install.rst:79
+#: ../../install.rst:82
 msgid "Using from source code"
 msgstr ""
 
-#: ../../install.rst:81
+#: ../../install.rst:84
 msgid ""
 "If you need to make some changes to the source code (e.g. fix bugs) and "
 "want it work immediately (rather than waiting for offical fix). You can "
 "also using from the source code directly."
 msgstr ""
 
-#: ../../install.rst:84
+#: ../../install.rst:87
 msgid ""
 "Please ensure you have uninstalled the pypi easyidp in your current "
 "environment:"
 msgstr ""
 
-#: ../../install.rst:90
+#: ../../install.rst:93
 msgid "and need to restart python to make changes taking effects."
 msgstr ""
 
-#: ../../install.rst:93
+#: ../../install.rst:96
 msgid ""
 "Assuming the source package was downloaded in "
 "``C:\\path\\to\\source\\code\\EasyIDP`` and the ``code`` folder has the "
 "following files:"
 msgstr ""
 
-#: ../../install.rst:105
+#: ../../install.rst:108
 msgid "Then you can used the following code to manual import easyidp package:"
 msgstr ""
 
-#: ../../install.rst:114
+#: ../../install.rst:117
 msgid "Or install to your virtual environment by:"
 msgstr ""
 

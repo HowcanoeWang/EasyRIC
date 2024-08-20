@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 22:51+0900\n"
+"POT-Creation-Date: 2024-08-20 16:38+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../backgrounds/geotiff_transparency.rst:5
 msgid "GeoTiff Transparency"
@@ -183,11 +183,11 @@ msgstr ""
 msgid "gimp_coord.jpg"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:107
+#: ../../backgrounds/roi_marking.rst:110
 msgid "2\\. Marking ROI on point cloud"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:109
+#: ../../backgrounds/roi_marking.rst:112
 msgid ""
 "The open source software `CloudCompare <http://cloudcompare.org/>`_ is "
 "used to mark ROI on point clouds based on point picking and save picked "
@@ -196,11 +196,11 @@ msgid ""
 "file."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:113
+#: ../../backgrounds/roi_marking.rst:116
 msgid "ROI marking"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:115
+#: ../../backgrounds/roi_marking.rst:118
 msgid ""
 "The steps to getting a txt file is as follows, by using ``pick several "
 "points`` tools to pick points and saving only ``x,y,z`` to txt file."
@@ -210,71 +210,70 @@ msgstr ""
 msgid "cc_mark_txt.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:121
+#: ../../backgrounds/roi_marking.rst:124
 msgid ""
 "it is recommend to make only one ROI in one TXT file which benefits for "
 "ROI management, unless you have advanced python data processing skills to"
 " deal with mixed ROIs in one TXT file."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:124
+#: ../../backgrounds/roi_marking.rst:127
 msgid "ROI reading"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:126
+#: ../../backgrounds/roi_marking.rst:129
 msgid "The produced TXT file looks like this, including 4 vertex by (x, y, z)"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:135
+#: ../../backgrounds/roi_marking.rst:138
 msgid "It can be loaded by EasyIDP directly:"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:150
+#: ../../backgrounds/roi_marking.rst:153
 msgid "The original text only has 4 points:"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:161
+#: ../../backgrounds/roi_marking.rst:164
 msgid ""
 "However, the definition of polygon requires the first point should be the"
 " last points, so the outputs of easyidp automatically add to the last "
 "line."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:163
+#: ../../backgrounds/roi_marking.rst:166
 msgid ""
 "Due to each txt file contains only one polygon, currently need user "
 "manual add to ``ROI`` object like follows:"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:170 ../../backgrounds/roi_marking.rst:249
+#: ../../backgrounds/roi_marking.rst:173 ../../backgrounds/roi_marking.rst:252
 msgid "待处理"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:172
+#: ../../backgrounds/roi_marking.rst:175
 msgid ""
 "In the future, EasyIDP may provide an API to load all txt files in one "
 "folder as ``ROI`` object directly."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:176
+#: ../../backgrounds/roi_marking.rst:179
 msgid "3\\. Marking ROI on GIS maps"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:178
+#: ../../backgrounds/roi_marking.rst:181
 msgid ""
 "The open source `QGIS <https://www.qgis.org/en/site>`_ is used to make "
 "``*.shp`` file of ROI on GIS maps, including DOM and DSM. Users can also "
 "select any other GIS software which produces standard ``*.shp`` file. The"
-" example map data can be downloaded from `here <https://github.com"
-"/UTokyo-FieldPhenomics-"
-"Lab/EasyIDP/releases/download/v0.1-alpha/lotus_170525.zip>`_:"
+" example map data can be found from ``easyidp.data.Lotus().pix4d.dom`` or"
+" ``easyidp.data.Lotus().metashape.dom``:"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:182
+#: ../../backgrounds/roi_marking.rst:185
 msgid "Add Polygons"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:184
+#: ../../backgrounds/roi_marking.rst:187
 msgid "Firstly, loading the maps into QGIS software:"
 msgstr ""
 
@@ -282,7 +281,7 @@ msgstr ""
 msgid "qgis_load_map.png"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:190
+#: ../../backgrounds/roi_marking.rst:193
 msgid ""
 "And activate ``digitizing toolbar`` in ``view -> toolbars`` if not "
 "activated:"
@@ -292,7 +291,7 @@ msgstr ""
 msgid "qgis_activate_toolbar.png"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:196
+#: ../../backgrounds/roi_marking.rst:199
 msgid ""
 "Then clicking ``new shapefile layer`` in the ``Data Source Manager "
 "Toolbar``, specify the shp file name and path, changing geometry type to "
@@ -305,7 +304,7 @@ msgstr ""
 msgid "qgis_init_shp.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:201
+#: ../../backgrounds/roi_marking.rst:204
 msgid ""
 "Click ``Toggle Editing`` in the ``Digitizing toolbar``, then click ``add "
 "polygon feature`` button, the mouse will change to scope symbol, clicking"
@@ -317,21 +316,21 @@ msgstr ""
 msgid "qgis_add_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:206
+#: ../../backgrounds/roi_marking.rst:209
 msgid "Repeat previous steps until all ROI are marked."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:208
+#: ../../backgrounds/roi_marking.rst:211
 msgid "How to move or duplicate ROI"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:211
+#: ../../backgrounds/roi_marking.rst:214
 msgid ""
 "Activate ``Advanced digitizing toolbar`` and ``Attributes toolbar`` in "
 "``view -> toolbars`` if not activated"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:213
+#: ../../backgrounds/roi_marking.rst:216
 msgid ""
 "click ``Select feature by area or single click`` button in ``Attributes "
 "toolbar``, and select target roi (its vertex will change to red cross "
@@ -344,11 +343,11 @@ msgstr ""
 msgid "qgis_mv_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:219
+#: ../../backgrounds/roi_marking.rst:222
 msgid "How to make advanced shape ROI"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:222
+#: ../../backgrounds/roi_marking.rst:225
 msgid ""
 "Activate ``Shape digitizing toolbar`` in ``view -> toolbars`` and if not "
 "activated"
@@ -358,23 +357,23 @@ msgstr ""
 msgid "qgis_adv_roi.gif"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:227
+#: ../../backgrounds/roi_marking.rst:230
 msgid ""
 "It provides advanced options for circular string, add circle, add "
 "ellipse, add rectangle, and add regular polygon."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:231
+#: ../../backgrounds/roi_marking.rst:234
 msgid "Read shp file"
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:233
+#: ../../backgrounds/roi_marking.rst:236
 msgid ""
 "In this example, the `plots.shp` file using default projection system "
 "EPSG 4326 which default value is (latitude, longitude)."
 msgstr ""
 
-#: ../../backgrounds/roi_marking.rst:250
+#: ../../backgrounds/roi_marking.rst:253
 msgid ""
 "The shp file only provides 2D coordinates, while 3D geography coordinates"
 " is needed for further calculation. The DSM can provides the height "
@@ -407,54 +406,67 @@ msgstr ""
 msgid "Activate virtual env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:42 ../../backgrounds/virtualenv.rst:87
+#: ../../backgrounds/virtualenv.rst:47 ../../backgrounds/virtualenv.rst:92
 msgid "Install EasyIDP package"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:50
+#: ../../backgrounds/virtualenv.rst:55
 msgid "Exit the virtual env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:59
+#: ../../backgrounds/virtualenv.rst:64
 msgid "Delete the virtual env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:61
+#: ../../backgrounds/virtualenv.rst:66
 msgid ""
 "Delete the folder ``C:\\path\\to\\env\\folder`` directly to delete "
 "environment"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:68
+#: ../../backgrounds/virtualenv.rst:73
 msgid "Conda"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:71
+#: ../../backgrounds/virtualenv.rst:76
 msgid "Create conda env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:78
+#: ../../backgrounds/virtualenv.rst:83
 msgid "Activate conda env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:89
+#: ../../backgrounds/virtualenv.rst:94
 msgid ""
 "Due to the EasyIDP package have not been published to Conda forge, you "
 "could only use pip to install."
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:96
+#: ../../backgrounds/virtualenv.rst:101
 msgid ""
 "If you using pip in conda virtual envs, other packages should also "
 "installed by pip. Do not use ``conda install`` and ``pip install`` at he "
 "same time."
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:99
+#: ../../backgrounds/virtualenv.rst:104
 msgid "Exit conda env"
 msgstr ""
 
-#: ../../backgrounds/virtualenv.rst:107
+#: ../../backgrounds/virtualenv.rst:112
 msgid "Delete conda env"
 msgstr ""
+
+#~ msgid ""
+#~ "The open source `QGIS "
+#~ "<https://www.qgis.org/en/site>`_ is used to "
+#~ "make ``*.shp`` file of ROI on GIS"
+#~ " maps, including DOM and DSM. Users"
+#~ " can also select any other GIS "
+#~ "software which produces standard ``*.shp`` "
+#~ "file. The example map data can be"
+#~ " downloaded from `here <https://github.com"
+#~ "/UTokyo-FieldPhenomics-"
+#~ "Lab/EasyIDP/releases/download/v0.1-alpha/lotus_170525.zip>`_:"
+#~ msgstr ""
 

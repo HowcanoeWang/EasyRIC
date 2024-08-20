@@ -8,32 +8,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-06 19:51+0900\n"
+"POT-Creation-Date: 2024-08-20 13:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.1\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: ../../index.rst:343
+#: ../../index.rst:59
 msgid "Getting started"
 msgstr "はじめに"
 
-#: ../../index.rst:350
+#: ../../index.rst:66
 msgid "Backgrounds"
 msgstr "背景"
 
-#: ../../index.rst:341 ../../index.rst:359
+#: ../../index.rst:57 ../../index.rst:75
 msgid "Examples"
 msgstr ""
 
-#: ../../index.rst:365
+#: ../../index.rst:85
 msgid "Python API"
 msgstr ""
 
-#: ../../index.rst:380
+#: ../../index.rst:104
 msgid "Development"
 msgstr "開発"
 
@@ -68,7 +68,7 @@ msgid "Save cropped results to corresponding files"
 msgstr "切り出した結果を対応するファイルに保存"
 
 #: ../../index.rst:-1
-msgid "GitHub code size in bytes"
+msgid "PyPI - Python Version"
 msgstr ""
 
 #: ../../index.rst:-1
@@ -116,26 +116,26 @@ msgid ""
 "latitude, altitude)"
 msgstr ""
 
-#: ../../index.rst:57
+#: ../../index.rst:113
 msgid "Quick Start"
 msgstr ""
 
-#: ../../index.rst:60
+#: ../../index.rst:116
 msgid "You can install the packages by PyPi:"
 msgstr ""
 
-#: ../../index.rst:69
+#: ../../index.rst:125
 msgid ""
 "If you meet bugs in the pypi version, please consider using the latest "
 "source code. The tutorial can be found here: :ref:`using-from-source-"
 "code`."
 msgstr ""
 
-#: ../../index.rst:72
+#: ../../index.rst:128
 msgid "And import the packages in your python code:"
 msgstr ""
 
-#: ../../index.rst:81
+#: ../../index.rst:137
 msgid ""
 "Before doing the following example, please understand the basic pipeline "
 "for image 3D reconstruction by Pix4D or Metashape. And know how to export"
@@ -143,39 +143,39 @@ msgid ""
 "basic knowledge about GIS shapefile format (\\*.shp)."
 msgstr ""
 
-#: ../../index.rst:86
+#: ../../index.rst:142
 msgid "1. Read ROI"
 msgstr ""
 
-#: ../../index.rst:97
+#: ../../index.rst:153
 msgid ""
 "The 2D roi can be used to crop the DOM, DSM, and point cloud ( `2. Crop "
 "by ROI`_ ). While the 3D roi can be used for Backward projection ( `4. "
 "Backward Projection`_ )"
 msgstr ""
 
-#: ../../index.rst:101
+#: ../../index.rst:157
 msgid ""
 "It is highly recommended to ensure the shapefile and geotiff share the "
 "same coordinate reference systems (CRS), the built-in conversion "
 "algorithm in EasyIDP may suffer accuracy loss."
 msgstr ""
 
-#: ../../index.rst:103
+#: ../../index.rst:159
 msgid ""
 "It is recommended to use Coordinate reference systems for \"UTM\" (WGS 84"
 " / UTM grid system), the unit for x and y are in meters and have been "
 "tested by EasyIDP developers."
 msgstr ""
 
-#: ../../index.rst:105
+#: ../../index.rst:161
 msgid ""
 "The traditional (longitude, latitude) coordinates like ``epsg::4326`` "
 "also supported, but not recommended if you need calculate \"distences\" "
 "hence its unit is degree."
 msgstr ""
 
-#: ../../index.rst:107
+#: ../../index.rst:163
 msgid ""
 "The local country commonly used coordinates like BJZ54 (北京54), CGCS2000 "
 "(2000国家大地坐标系), JDG2011 (日本測地系2011), and etc., have not been tested and "
@@ -183,7 +183,7 @@ msgid ""
 "software if you meet any problem."
 msgstr ""
 
-#: ../../index.rst:109
+#: ../../index.rst:165
 msgid ""
 "The acceptable ROI types are only polygons (grids are a special type of "
 "polygon), and the size of each polygon should be fittable into the raw "
@@ -191,135 +191,114 @@ msgid ""
 msgstr ""
 
 #: ../../index.rst
-msgid "ROI types"
+msgid "ROI类型"
 msgstr ""
 
-#: ../../index.rst:114
+#: ../../index.rst:170
 msgid ""
 "The fourth one may too large to be fitted into each raw image, recommend "
 "to make smaller polygons."
 msgstr ""
 
-#: ../../index.rst:117
+#: ../../index.rst:173
 msgid "2. Crop by ROI"
 msgstr ""
 
-#: ../../index.rst:119
+#: ../../index.rst:175
 msgid "Read the DOM and DSM Geotiff Maps"
 msgstr ""
 
-#: ../../index.rst:126
+#: ../../index.rst:182
 msgid "Read point cloud data"
 msgstr ""
 
-#: ../../index.rst:133
+#: ../../index.rst:189
 msgid "crop the region of interest from ROI:"
 msgstr ""
 
-#: ../../index.rst:141
+#: ../../index.rst:197
 msgid "If you want to save these crops to given folder:"
 msgstr ""
 
-#: ../../index.rst:151
+#: ../../index.rst:207
 msgid "3. Read Reconstruction projects"
 msgstr ""
 
-#: ../../index.rst:153
+#: ../../index.rst:209
 msgid "You can add the reconstructed plot individually or by batch adding"
 msgstr ""
 
-#: ../../index.rst:156
-msgid "Add one reconstructed plot"
-msgstr ""
-
-#: ../../index.rst:160
+#: ../../index.rst:216
 msgid ""
 "The Metashape projects naturally support using different chunks for "
 "different plots in one project file (\\*.psx), so the ``chunk_id`` is "
 "required to specify which plot are processing."
 msgstr ""
 
-#: ../../index.rst:168
+#: ../../index.rst:224
 msgid ""
 "Though only the ``xxxx.psx`` is given here, the folder ``xxxx.files`` "
 "generated by Metashape is more important for EasyIDP. Please put them "
 "into the same directory."
 msgstr ""
 
-#: ../../index.rst:182
+#: ../../index.rst:228
 msgid ""
 "Currently, the EasyIDP has not support parse the meta info that records "
 "the relative path to the raw image folder, so please manual specify the "
 "``raw_img_folder`` if you need the backward projection."
 msgstr ""
 
-#: ../../index.rst:184
+#: ../../index.rst:240
 msgid ""
 "Though only the ``xxxx.p4d`` is given here, the folder ``xxxx`` generated"
 " by Pix4D is more important for EasyIDP. Please put them into the same "
 "directory and not recommend the change the inner folder structure"
 msgstr ""
 
-#: ../../index.rst:189
-msgid "Batch pool for multi-plots"
-msgstr ""
-
-#: ../../index.rst:192 ../../index.rst:264 ../../index.rst:291
-#: ../../index.rst:316
-msgid "待处理"
-msgstr ""
-
-#: ../../index.rst:194 ../../index.rst:266 ../../index.rst:293
-#: ../../index.rst:318
-msgid "This feather has not supported yet."
-msgstr ""
-
-#: ../../index.rst:197
-msgid ""
-"Add the reconstruction projects to processing pools (different flight "
-"time for the same field):"
-msgstr ""
-
-#: ../../index.rst:206
-msgid "Then you can specify each chunk by:"
-msgstr ""
-
-#: ../../index.rst:216
+#: ../../index.rst:272
 msgid "4. Backward Projection"
 msgstr ""
 
-#: ../../index.rst:223
+#: ../../index.rst:279
 msgid "Then check the results:"
 msgstr ""
 
-#: ../../index.rst:240
+#: ../../index.rst:296
 msgid "Save backward projected images"
 msgstr ""
 
-#: ../../index.rst:257
+#: ../../index.rst:313
 msgid "5. Forward Projection"
 msgstr ""
 
-#: ../../index.rst:259
+#: ../../index.rst:315
 msgid ""
-"This function support refineing the bad quality DOM regions by "
-"corresponding raw images, at the mean time, if provided, converting the "
-"polygons on raw images back to the DOM with geo-coordinates."
+"This function support bring results and image itself from corresponding "
+"raw images to geotiff."
 msgstr ""
 
-#: ../../index.rst:262
+#: ../../index.rst:317
+msgid "The following features have not been supported."
+msgstr ""
+
+#: ../../index.rst:319
 msgid ""
 "Please using the following code to forward project from raw img to DOM "
 "(``raw forward dom`` -> ``raw4dom``):"
 msgstr ""
 
-#: ../../index.rst:272
+#: ../../index.rst:321
+msgid "This feather has not supported yet."
+msgstr ""
+
+#: ../../index.rst:327
 msgid ""
 "This is a dict contains the image ndarray of each ROI as keys, which "
 "projecting the part of raw image onto DOM."
 msgstr ""
 
-#: ../../index.rst:289
+#: ../../index.rst:335
 msgid ""
 "You can also do the forward projecting with detected results, the polygon"
 " are in the geo coordinate. Before doing that, please prepare the "
@@ -327,217 +306,215 @@ msgid ""
 "pixel coordinates)."
 msgstr ""
 
-#: ../../index.rst:300
+#: ../../index.rst:342
 msgid "Then forward projecting by giving both to the function:"
 msgstr ""
 
-#: ../../index.rst:314
-msgid "And save the image results to files:"
-msgstr ""
-
-#: ../../index.rst:320
+#: ../../index.rst:357
 msgid "Save single geotiff of one ROI:"
 msgstr ""
 
-#: ../../index.rst:327
+#: ../../index.rst:364
 msgid "Batch save single geotiff of each ROI:"
 msgstr ""
 
-#: ../../index.rst:333
-msgid "Refine DOM by raw images:"
-msgstr ""
-
-#: ../../index.rst:395
+#: ../../index.rst:373
 msgid "References"
 msgstr ""
 
-#: ../../index.rst:398
+#: ../../index.rst:376
 msgid "Publication"
 msgstr ""
 
-#: ../../index.rst:400
+#: ../../index.rst:378
 msgid "Please cite this paper if this project helps you:"
 msgstr ""
 
-#: ../../index.rst:418
+#: ../../index.rst:396
 msgid "Site packages"
 msgstr ""
 
-#: ../../index.rst:420
+#: ../../index.rst:398
 msgid "We also thanks the benefits from the following open source projects:"
 msgstr ""
 
-#: ../../index.rst:422
+#: ../../index.rst:400
 msgid "package main (**for users**)"
 msgstr ""
 
-#: ../../index.rst:424
+#: ../../index.rst:402
 msgid "numpy: `https://numpy.org/ <https://numpy.org/>`_"
 msgstr ""
 
-#: ../../index.rst:425
+#: ../../index.rst:403
 msgid "matplotlib: `https://matplotlib.org/ <https://matplotlib.org/>`_"
 msgstr ""
 
-#: ../../index.rst:426
+#: ../../index.rst:404
 msgid ""
-"pillow: `https://github.com/python-pillow/Pillow <https://github.com"
-"/python-pillow/Pillow>`_"
+"scikit-image: `https://github.com/scikit-image/scikit-image "
+"<https://github.com/scikit-image/scikit-image>`_"
 msgstr ""
 
-#: ../../index.rst:427
+#: ../../index.rst:405
 msgid ""
 "pyproj: `https://github.com/pyproj4/pyproj "
 "<https://github.com/pyproj4/pyproj>`_"
 msgstr ""
 
-#: ../../index.rst:428
+#: ../../index.rst:406
 msgid ""
 "tifffile: `https://github.com/cgohlke/tifffile "
 "<https://github.com/cgohlke/tifffile>`_"
 msgstr ""
 
-#: ../../index.rst:429
+#: ../../index.rst:407
 msgid ""
 "imagecodecs: `https://github.com/cgohlke/imagecodecs "
 "<https://github.com/cgohlke/imagecodecs>`_"
 msgstr ""
 
-#: ../../index.rst:430
+#: ../../index.rst:408
 msgid ""
 "shapely: `https://github.com/shapely/shapely "
 "<https://github.com/shapely/shapely>`_"
 msgstr ""
 
-#: ../../index.rst:431
+#: ../../index.rst:409
 msgid ""
 "laspy/lasrs/lasio: `https://github.com/laspy/laspy "
 "<https://github.com/laspy/laspy>`_"
 msgstr ""
 
-#: ../../index.rst:432
+#: ../../index.rst:410
+msgid ""
+"geojson: `https://github.com/jazzband/geojson "
+"<https://github.com/jazzband/geojson>`_"
+msgstr ""
+
+#: ../../index.rst:411
 msgid ""
 "plyfile: `https://github.com/dranjan/python-plyfile "
 "<https://github.com/dranjan/python-plyfile>`_"
 msgstr ""
 
-#: ../../index.rst:433
+#: ../../index.rst:412
 msgid ""
 "pyshp: `https://github.com/GeospatialPython/pyshp "
 "<https://github.com/GeospatialPython/pyshp>`_"
 msgstr ""
 
-#: ../../index.rst:434
+#: ../../index.rst:413
 msgid ""
 "tabulate: `https://github.com/astanin/python-tabulate "
 "<https://github.com/astanin/python-tabulate>`_"
 msgstr ""
 
-#: ../../index.rst:435
+#: ../../index.rst:414
 msgid "tqdm: `https://github.com/tqdm/tqdm <https://github.com/tqdm/tqdm>`_"
 msgstr ""
 
-#: ../../index.rst:436
+#: ../../index.rst:415
 msgid ""
 "gdown: `https://github.com/wkentaro/gdown "
 "<https://github.com/wkentaro/gdown>`_"
 msgstr ""
 
-#: ../../index.rst:438
+#: ../../index.rst:417
 msgid "package documentation (**for developers**)"
 msgstr ""
 
-#: ../../index.rst:440
+#: ../../index.rst:419
 msgid ""
 "sphinx: `https://github.com/sphinx-doc/sphinx <https://github.com/sphinx-"
 "doc/sphinx>`_"
 msgstr ""
 
-#: ../../index.rst:441
+#: ../../index.rst:420
 msgid ""
 "nbsphinx: `https://github.com/spatialaudio/nbsphinx "
 "<https://github.com/spatialaudio/nbsphinx>`_"
 msgstr ""
 
-#: ../../index.rst:442
+#: ../../index.rst:421
 msgid ""
 "sphinx-gallery: `https://github.com/sphinx-gallery/sphinx-gallery "
 "<https://github.com/sphinx-gallery/sphinx-gallery>`_"
 msgstr ""
 
-#: ../../index.rst:443
+#: ../../index.rst:422
 msgid ""
 "sphinx-inline-tabs: `https://github.com/pradyunsg/sphinx-inline-tabs "
 "<https://github.com/pradyunsg/sphinx-inline-tabs>`_"
 msgstr ""
 
-#: ../../index.rst:444
+#: ../../index.rst:423
 msgid ""
 "sphinx-intl: `https://github.com/sphinx-doc/sphinx-intl "
 "<https://github.com/sphinx-doc/sphinx-intl>`_"
 msgstr ""
 
-#: ../../index.rst:445
+#: ../../index.rst:424
 msgid ""
 "sphinx-rtc-theme: `https://github.com/readthedocs/sphinx_rtd_theme "
 "<https://github.com/readthedocs/sphinx_rtd_theme>`_"
 msgstr ""
 
-#: ../../index.rst:446
+#: ../../index.rst:425
 msgid ""
 "furo: `https://github.com/pradyunsg/furo "
 "<https://github.com/pradyunsg/furo>`_"
 msgstr ""
 
-#: ../../index.rst:448
+#: ../../index.rst:427
 msgid "package testing and releasing (**for developers**)"
 msgstr ""
 
-#: ../../index.rst:450
+#: ../../index.rst:429
 msgid ""
 "pytest: `https://github.com/pytest-dev/pytest <https://github.com/pytest-"
 "dev/pytest>`_"
 msgstr ""
 
-#: ../../index.rst:451
+#: ../../index.rst:430
 msgid ""
 "packaging: `https://github.com/pypa/packaging "
 "<https://github.com/pypa/packaging>`_"
 msgstr ""
 
-#: ../../index.rst:452
+#: ../../index.rst:431
 msgid "wheel: `https://github.com/pypa/wheel <https://github.com/pypa/wheel>`_"
 msgstr ""
 
-#: ../../index.rst:455
+#: ../../index.rst:434
 msgid "Funding"
 msgstr ""
 
-#: ../../index.rst:457
+#: ../../index.rst:436
 msgid "This project was partially funded by:"
 msgstr ""
 
-#: ../../index.rst:459
+#: ../../index.rst:438
 msgid ""
 "the JST AIP Acceleration Research “Studies of CPS platform to raise big-"
 "data-driven AI agriculture”;"
 msgstr ""
 
-#: ../../index.rst:460
+#: ../../index.rst:439
 msgid "the SICORP Program JPMJSC16H2;"
 msgstr ""
 
-#: ../../index.rst:461
+#: ../../index.rst:440
 msgid "CREST Programs JPMJCR16O2 and JPMJCR16O1;"
 msgstr ""
 
-#: ../../index.rst:462
+#: ../../index.rst:441
 msgid ""
 "the International Science & Technology Innovation Program of Chinese "
 "Academy of Agricultural Sciences (CAASTIP);"
 msgstr ""
 
-#: ../../index.rst:463
+#: ../../index.rst:442
 msgid "the National Natural Science Foundation of China U19A2"
 msgstr ""
 
@@ -559,5 +536,46 @@ msgstr ""
 #~ "Then using the following code to "
 #~ "forward project from raw img to "
 #~ "DOM (raw forward dom -> raw4dom):"
+#~ msgstr ""
+
+#~ msgid "GitHub code size in bytes"
+#~ msgstr ""
+
+#~ msgid "Add one reconstructed plot"
+#~ msgstr ""
+
+#~ msgid "Batch pool for multi-plots"
+#~ msgstr ""
+
+#~ msgid "待处理"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Add the reconstruction projects to "
+#~ "processing pools (different flight time "
+#~ "for the same field):"
+#~ msgstr ""
+
+#~ msgid "Then you can specify each chunk by:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This function support refineing the bad"
+#~ " quality DOM regions by corresponding "
+#~ "raw images, at the mean time, if"
+#~ " provided, converting the polygons on "
+#~ "raw images back to the DOM with"
+#~ " geo-coordinates."
+#~ msgstr ""
+
+#~ msgid "And save the image results to files:"
+#~ msgstr ""
+
+#~ msgid "Refine DOM by raw images:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "pillow: `https://github.com/python-pillow/Pillow "
+#~ "<https://github.com/python-pillow/Pillow>`_"
 #~ msgstr ""
 
