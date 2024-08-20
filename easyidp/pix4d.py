@@ -1188,7 +1188,7 @@ def parse_p4d_project(project_path:str, param_folder=None):
             \\project_path
             |--- 1_initial\\
             |--- 2_densification\\
-            |___ 3_dsm_ortho\\
+            |--- 3_dsm_ortho\\
 
 
     param_folder: str, default None
