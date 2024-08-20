@@ -34,4 +34,4 @@ jobs:
         pip install -r requirements/test.txt
     - name: Run pytest
       run: | 
-        pytest
+        pytest -n auto
