@@ -131,7 +131,7 @@ def mock_requests_get():
 
 def test_download_success():
     dataset_name = "gdown_test"
-    output = "./tests/out/data_test/gdown_test.zip"
+    output = "./tests/out/data_test/gdown_download_test.zip"
 
     if os.path.exists(output):
         os.remove(output)
@@ -153,15 +153,31 @@ def test_download_auth_failure(mock_requests_get):
 #--------------------
 
 def test_gdown_ali_oss():
-    gd_dir = idp.data.user_data_dir("gdown_test")
+    # the default EasyIDPDataset using system cache folder
+    # it conflits when pytest parallel 
+    #  -> previous `gdown_test` function may delete the same folder
+    # thus made an unique test, which can specify unzip folder 
+    from easyidp.data import EasyidpDataSet, GDOWN_TEST_URL
+    class ADownTest(EasyidpDataSet):
+        def __init__(self, dataset_folder:Path):
+
+            super().__init__("gdown_test", GDOWN_TEST_URL, "0.2KB")
+            self.data_dir = dataset_folder / self.name
+            self.zip_file = dataset_folder / (self.name + ".zip")
+
+            super().load_data()
+
+            self.pix4d.proj = self.data_dir / "file1.txt"
+            self.metashape.param = self.data_dir / "folder1"
+    # end of unique testing class
+
+    dataset_folder = Path('./tests/out/data_test/')
+    data_dir = dataset_folder / "gdown_test"
     
     # clear already existed folder for `gdown_test`
-    if gd_dir.exists():
-        shutil.rmtree(gd_dir)
+    if data_dir.exists():
+        shutil.rmtree(data_dir)
     
-    # force to use AliYUN OSS
-    idp.GOOGLE_AVAILABLE = False
-
     # ask if China mainland, answer: no
     #   google drive not available, and not in china mainland
     #   => not provide aliyun oss service for overseas, 
@@ -174,12 +190,16 @@ def test_gdown_ali_oss():
                 "Could not find proper downloadable link for dataset gdown_test."
             )
             ):
-            gd = idp.data.GDownTest()
+            # force to use AliYUN OSS
+            idp.GOOGLE_AVAILABLE = False
+            gd = ADownTest(dataset_folder=dataset_folder)
 
     # ask if China mainland, answer: yes
     inputs = ["y", "我已知悉此次下载会消耗0.0元的下行流量费用"]
     with patch('builtins.input', side_effect=inputs):
-        gd = idp.data.GDownTest()
+        # force to use AliYUN OSS
+        idp.GOOGLE_AVAILABLE = False
+        gd = ADownTest(dataset_folder=dataset_folder)
 
     assert gd.data_dir.exists()
     assert (gd.data_dir / "file1.txt").exists()

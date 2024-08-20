@@ -4,7 +4,6 @@ import shutil
 import zipfile
 import requests
 import subprocess
-import webbrowser
 import tqdm
 from pathlib import Path
 
@@ -256,13 +255,13 @@ class EasyidpDataSet():
     """The base class for Dataset
     """
 
-    def __init__(self, name="", gdrive_url="", size="",):
+    def __init__(self, name="", gdrive_url="", size=""):
         """The dataset has the following properties (almost in string type)
 
         name
             The dataset name
-        url_list
-            The possible download urls
+        gdrive_url
+            The google drive download urls
         size
             Ths size of zipped file
         data_dir
@@ -529,7 +528,7 @@ class ForestBirds(EasyidpDataSet):
         self.metashape.dsm = self.data_dir / "Hidden_Little_03_24_2022_DEM.tif"
         
 class GDownTest(EasyidpDataSet):
-    """The data for Google Drive and Aliyun OSS download testing
+    """The data for Google Drive download testing
     """
 
     def __init__(self):
