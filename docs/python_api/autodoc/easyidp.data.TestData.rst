@@ -26,8 +26,8 @@
 
    .. autosummary::
    
+      ~TestData.gdrive_url
       ~TestData.name
       ~TestData.size
-      ~TestData.url_list
    
    

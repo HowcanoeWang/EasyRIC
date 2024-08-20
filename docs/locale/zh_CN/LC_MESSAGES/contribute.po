@@ -90,7 +90,7 @@ msgstr "用下面的命令来确认是否安装成功："
 
 #: ../../contribute.rst:60
 msgid "Then please download all datasets, this may take a long time."
-msgstr ""
+msgstr "然后请下载所有数据集，这可能需要很长时间。"
 
 #: ../../contribute.rst:68
 msgid "Build"

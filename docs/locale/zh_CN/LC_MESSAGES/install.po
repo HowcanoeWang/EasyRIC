@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyIDP \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-06 19:18+0900\n"
+"POT-Creation-Date: 2024-08-20 13:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../install.rst:5
 msgid "Install EasyIDP"
@@ -51,41 +51,49 @@ msgstr ""
 msgid "Windows 11 (64-bit)"
 msgstr ""
 
+#: ../../install.rst:21
+msgid "macOS 10.15+"
+msgstr ""
+
 #: ../../install.rst:22
+msgid "Manjaro"
+msgstr ""
+
+#: ../../install.rst:24
 msgid ""
 "The following operating system should also works, but have not been "
 "tested:"
 msgstr "下面的这些操作系统应该也可行，但是没有官方测试过"
 
-#: ../../install.rst:24
+#: ../../install.rst:26
 msgid "Ubuntu 18.04+"
 msgstr ""
 
-#: ../../install.rst:25
-msgid "macOS 10.15+"
+#: ../../install.rst:27
+msgid "ArchLinux"
 msgstr ""
 
-#: ../../install.rst:27
+#: ../../install.rst:30
 msgid ""
 "Using this package requires basic Python programming knowledge, including"
 " basic python gramma and package installation."
 msgstr "使用这个软件包需要使用者有基本的Python编程基础知识，包括基本的Python语法和安装第三方包的能力"
 
-#: ../../install.rst:31
+#: ../../install.rst:34
 msgid "Install from PyPI"
 msgstr "从PyPI安装"
 
-#: ../../install.rst:33
+#: ../../install.rst:36
 msgid ""
 "Here assuming the user has python3 and pip installed in the computer, and"
 " in the command line, the following operation works:"
 msgstr "这边假设用户已经把Python3和pip成功安装到电脑上，然后在命令行里也可以成功的进行如下指令："
 
-#: ../../install.rst:42
+#: ../../install.rst:45
 msgid "Then install the package by:"
 msgstr "然后通过下面的方法来安装所需要的包："
 
-#: ../../install.rst:50
+#: ../../install.rst:53
 msgid ""
 "In general, we recommend using a `virtual environment <https://docs"
 ".python-guide.org/dev/virtualenvs/>`_ or `conda environment "
@@ -96,11 +104,11 @@ msgstr ""
 "`conda环境 <https://docs.conda.io/en/latest/miniconda.html>`_ "
 "来避免和你本地环境中的依赖版本冲突."
 
-#: ../../install.rst:54
+#: ../../install.rst:57
 msgid "Please refer :doc:`backgrounds/virtualenv` for more details."
 msgstr "更多细节请参考 :doc:`使用虚拟环境 <backgrounds/virtualenv>`."
 
-#: ../../install.rst:56
+#: ../../install.rst:59
 msgid ""
 "For Linux users, depending on the configurations, ``pip3`` may be needed "
 "for Python 3, or the ``--user`` option may need to be used to avoid "
@@ -109,34 +117,34 @@ msgstr ""
 "对于Linux用户来说，取决于具体的设置。Python3的版本可能需要安装 ``pip3``，  或者需要额外提供 ``--user`` "
 "选项来避免权限问题，例如："
 
-#: ../../install.rst:70
+#: ../../install.rst:73
 msgid ""
 "For users in China, it is recommended to use Tsinghua source to "
 "accelerate the download speed:"
 msgstr "对于中国的用户，推荐使用清华源来加速下载速度："
 
-#: ../../install.rst:79
+#: ../../install.rst:82
 msgid "Using from source code"
 msgstr "使用源码"
 
-#: ../../install.rst:81
+#: ../../install.rst:84
 msgid ""
 "If you need to make some changes to the source code (e.g. fix bugs) and "
 "want it work immediately (rather than waiting for offical fix). You can "
 "also using from the source code directly."
 msgstr "如果你对源代码进行一些修改(如修复bug)并且想让它立即生效(而不是等待easyidp官方修复)。这种情况下可以直接使用源码"
 
-#: ../../install.rst:84
+#: ../../install.rst:87
 msgid ""
 "Please ensure you have uninstalled the pypi easyidp in your current "
 "environment:"
 msgstr "请确保从PyPI安装的easyidp已经从环境中移除："
 
-#: ../../install.rst:90
+#: ../../install.rst:93
 msgid "and need to restart python to make changes taking effects."
 msgstr "并且需要重启python来让改变生效"
 
-#: ../../install.rst:93
+#: ../../install.rst:96
 #, fuzzy
 msgid ""
 "Assuming the source package was downloaded in "
@@ -144,17 +152,10 @@ msgid ""
 "following files:"
 msgstr "假设源代码已经被下载到 ``C:\\path\\to\\source\\code`` 文件夹内，并且 ``code`` 文件夹有着如下的文件结构："
 
-#: ../../install.rst:105
+#: ../../install.rst:108
 msgid "Then you can used the following code to manual import easyidp package:"
 msgstr "然后可以用下面的代码来手动导入easyidp的包："
 
-#: ../../install.rst:114
+#: ../../install.rst:117
 msgid "Or install to your virtual environment by:"
 msgstr "或安装到虚拟环境："
-
-#~ msgid "Install"
-#~ msgstr "安装"
-
-#~ msgid "3.7"
-#~ msgstr ""
-

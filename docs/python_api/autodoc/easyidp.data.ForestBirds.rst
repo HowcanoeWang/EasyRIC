@@ -26,8 +26,8 @@
 
    .. autosummary::
    
+      ~ForestBirds.gdrive_url
       ~ForestBirds.name
       ~ForestBirds.size
-      ~ForestBirds.url_list
    
    

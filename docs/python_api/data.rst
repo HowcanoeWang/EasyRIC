@@ -36,57 +36,31 @@ Use example:
 
 .. caution::
 
-    For Chinese mainland user who can not access the GoogleDrive directly, please manually download the dataset by the following way:
+    For Chinese mainland user who can not access the GoogleDrive directly, the author personally setup an AliYun OSS downloading services in **2.0.1**, please update EasyIDP to the latest version (probably required :ref:`using-from-source-code`) and try:
 
     .. code-block:: python
 
-        >>> cn_url = idp.data.Lotus.url_list[1]
-        >>> cn_rul
-        'https://fieldphenomics.cowtransfer.com/s/9a87698f8d3242'
+        >>> lotus = idp.data.Lotus()
+        Google Drive Unaccessable, are you locate in China Mainland? (Y/N)
+        >>> Y
 
-    Please download the zip file in previous link, and unzip them into the following folder:
+    Then it will give an cost notice in Chinese for you to confirm:
+
+    .. code-block:: text
+
+        请注意，中国大陆数据集下载使用作者私人搭建的阿里云文件存储服务，
+        下载数据集会产生一定的流量费用(下载当前数据集2017_tanashi_lotus会消耗大约2.1元)，
+        此费用由作者本人负担，请勿在非必要的情况下重复下载或将此数据存储仓库用于其他用途
+
+        如果同意以上内容，请在下方用输入法输入（复制无效)：
+        我已知悉此次下载会消耗2.1元的下行流量费用
+
+    After typing the required sentences, it will downloading the dataset automatically from AliYun OSS services just like google cloud performance.
 
     .. code-block:: python
 
-        >>> idp.data.show_data_dir()
-
-    It will call your local file explorer to show the folder to put the data. Please insure the folder name the same with the dataset name:
-
-    .. code-block:: python
-
-        >>> idp.data.Lotus.name
-        '2017_tanashi_lotus'
-
-    And the folder should have the following structure:
-
-    .. tab:: Windows
-
-        .. code-block:: text
-
-            . C:\Users\<user>\AppData\Local\easyidp.data
-            |-- 2017_tanashi_lotus
-            |-- gdown_test
-            |-- ...
-
-    .. tab:: MacOS
-
-        .. code-block:: text
-
-            . ~/Library/Application Support/easyidp.data
-            |-- 2017_tanashi_lotus
-            |-- gdown_test
-            |-- ...
-
-    .. tab:: Linux/BSD
-
-        .. code-block:: text
-
-            . ~/.local/share/easyidp.data   # or in $XDG_DATA_HOME, if defined
-            |-- 2017_tanashi_lotus
-            |-- gdown_test
-            |-- ...
-
-    Or download all dataset from `this link <https://fieldphenomics.cowtransfer.com/s/25f92eb0585b4d>`_ at once, and unzip to previous folder structure.
+        >>> 我已知悉此次下载会消耗2.1元的下行流量费用
+        Downloading from Aliyun OSS:  35%|██████▋            | 1.27G/3.58G [04:26<08:04, 4.76MB/s] 
 
 
 The dataset base class and testing class (**for developers**): 

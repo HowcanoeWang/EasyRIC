@@ -26,8 +26,8 @@
 
    .. autosummary::
    
+      ~Lotus.gdrive_url
       ~Lotus.name
       ~Lotus.size
-      ~Lotus.url_list
    
    
