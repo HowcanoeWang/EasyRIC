@@ -3639,7 +3639,7 @@ msgstr ""
 msgid ""
 "Read ``*_calibrated_images_position.txt`` for "
 ":class:`easyidp.reconstruct.Photo.position` (geo_location)"
-msgstr "读取``*_calibrated_images_position.txt``以获取 :class:`easyidp.reconstruct.Photo.position` （地理位置）"
+msgstr "读取 ``*_calibrated_images_position.txt`` 以获取 :class:`easyidp.reconstruct.Photo.position` （地理位置）"
 
 #: easyidp.pix4d.read_campos_geo:3 easyidp.pix4d.read_ccp:3
 #: easyidp.pix4d.read_cicp:3 of
@@ -3664,7 +3664,7 @@ msgstr ""
 msgid ""
 "Read ``*_calibrated_camera_parameters.txt`` for "
 ":class:`easyidp.reconstruct.Photo` object"
-msgstr "读取``*_calibrated_camera_parameters.txt``以获取 :class:`easyidp.reconstruct.Photo` 对象"
+msgstr "读取 ``*_calibrated_camera_parameters.txt`` 以获取 :class:`easyidp.reconstruct.Photo` 对象"
 
 #: easyidp.pix4d.read_ccp:6 of
 msgid ""
@@ -3689,7 +3689,7 @@ msgstr ""
 msgid ""
 "Read ``*_pix4d_calibrated_internal_camera_parameters.cam`` for "
 ":class:`easyidp.reconstruct.Sensor` object"
-msgstr "读取``*_pix4d_calibrated_internal_camera_parameters.cam``以获取 :class:`easyidp.reconstruct.Sensor` 对象"
+msgstr "读取 ``*_pix4d_calibrated_internal_camera_parameters.cam`` 以获取 :class:`easyidp.reconstruct.Sensor` 对象"
 
 #: easyidp.pix4d.read_cicp:6 of
 msgid ""
@@ -3707,7 +3707,7 @@ msgstr ""
 
 #: ../../python_api/pix4d.rst:37:<autosummary>:1 easyidp.pix4d.read_pmat:1 of
 msgid "read pix4d file ``*_pmatrix.txt``"
-msgstr "读取pix4d文件``*_pmatrix.txt``"
+msgstr "读取pix4d文件 ``*_pmatrix.txt``"
 
 #: easyidp.pix4d.read_pmat:3 of
 #, fuzzy
@@ -3730,7 +3730,7 @@ msgstr ""
 
 #: ../../python_api/pix4d.rst:37:<autosummary>:1 easyidp.pix4d.read_xyz:1 of
 msgid "read pix4d file ``*_offset.xyz``"
-msgstr "读取pix4d文件``*_offset.xyz``"
+msgstr "读取pix4d文件 ``*_offset.xyz`` "
 
 #: easyidp.pix4d.read_xyz:3 of
 #, fuzzy
