@@ -14,13 +14,18 @@ class GeoTiff(object):
     """A GeoTiff class, consisted by header information and file path to raw file.
     """
 
-    def __init__(self, tif_path=""):
+    def __init__(self, tif_path="", transparent_layer=None):
         """The method to initialize the GeoTiff class
 
         Parameters
         ----------
         tif_path : str | pathlib.Path, optional
             the path to geotiff file, by default ""
+        Transparent_layer: None | int, optional
+            the transparent | alpha layer of given GeoTiff file, by default None
+            |    None: no alpha layer
+            |    0-x : specific alpha layer
+            |    -1  : the last layer
 
         Example
         -------
@@ -74,6 +79,9 @@ class GeoTiff(object):
 
         #: The numpy ndarray of GeoTiff images
         self.imarray = None
+
+        #: The layer to represent transparency / alpha
+        self.transparent_layer = None
 
         if tif_path != "":
             self.read_geotiff(tif_path)
@@ -433,6 +441,7 @@ class GeoTiff(object):
             
         """
         self._not_empty()
+
         if is_geo:
             poly_px = geo2pixel(polygon_hv, self.header, return_index=True)
         else:
@@ -468,12 +477,15 @@ class GeoTiff(object):
         poly_offseted_px = poly_px - bbox_left_top
         imarray_out, _ = idp.cvtools.imarray_crop(
             imarray_bbox, poly_offseted_px, 
-            outside_value=self.header['nodata']
+            nodata_value=self.header['nodata'],
+            transparent_layer=self.transparent_layer
         )
 
         # check if need save geotiff
-        if save_path is not None and os.path.splitext(save_path)[-1] == ".tif":
-            save_geotiff(self.header, imarray_out, bbox_left_top, save_path)
+        if save_path is not None:
+            save_path = Path(save_path)
+            if save_path.suffix  == ".tif":
+                save_geotiff(self.header, imarray_out, bbox_left_top, save_path)
 
         return imarray_out
 
@@ -595,8 +607,10 @@ class GeoTiff(object):
             out = tifffile_crop(page, top, left, h, w)
 
         # check if need save geotiff
-        if save_path is not None and os.path.splitext(save_path)[-1] == ".tif":
-            save_geotiff(self.header, out, np.array([left, top]), save_path)
+        if save_path is not None:
+            save_path = Path(save_path)
+            if save_path.suffix  == ".tif":
+                save_geotiff(self.header, out, np.array([left, top]), save_path)
 
         return out
 
@@ -891,7 +905,7 @@ def get_header(tif_path):
     with tf.TiffFile(tif_path) as tif:
         header = {}
         # keys: 'width', 'height', 'dim', 'scale', 'tie_point',
-        #       'nodata', 'crs', 'dtype', 'band_num', 
+        #       'nodata', 'crs', 'dtype', 'band_num'
         # for export:
         #       'tags', 'photometric', 'planarconfig', 'compression'
         page = tif.pages[0]
@@ -1637,8 +1651,18 @@ def save_geotiff(header, imarray, left_top_corner, save_path):
     """
     extratags = _offset_geotiff_extratags(header, left_top_corner)
 
-    file_ext = os.path.splitext(save_path)[-1]
+    if not isinstance(save_path, Path):
+        save_path = Path(save_path)
+
+    # create folder if parent folder not exists
+    file_ext = save_path.suffix
+    parent_folder = save_path.parent
+
     if file_ext == ".tif":
+        # create folder
+        if not parent_folder.exists():
+            parent_folder.mkdir()
+
         # write geotiff
         with tf.TiffWriter(save_path) as wtif:
             wtif.write(data=imarray, 

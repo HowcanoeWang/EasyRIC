@@ -574,6 +574,7 @@ class TestData(EasyidpDataSet):
         * ``.shp.roi_prj``
         * ``.shp.testutm_shp``
         * ``.shp.testutm_prj``
+        * ``.shp.mlayer_shp``
 
         **pcd test module** 
 
@@ -588,16 +589,21 @@ class TestData(EasyidpDataSet):
         * ``.pcd.maize_laz``
         * ``.pcd.maize_ply``
 
+
         **roi test module** 
 
         * ``.roi.dxf``
         * ``.roi.lxyz_txt``
         * ``.roi.xyz_txt``
 
+
         **geotiff test module**
 
         * ``.tiff.soyweed_part``
+        * ``.tiff.mlayer_ndvi ``
+        * ``.tiff.mlayer_multi``
         * ``.tiff.out``
+
 
         **metashape test module** 
 
@@ -776,6 +782,9 @@ class TestData(EasyidpDataSet):
             self.jp_crs_shp = data_dir / "shp_test" / "jp_crs.shp"
             self.jp_crs_prj = data_dir / "shp_test" / "jp_crs.prj"
 
+            # for multi-spectral testing
+            self.mlayer_shp  = data_dir / "shp_test" / "mlayer_roi.shp"
+
             if isinstance(test_out, str):
                 test_out = Path(test_out)
             self.out = test_out / "shp_test"
@@ -827,6 +836,10 @@ class TestData(EasyidpDataSet):
             self.data_dir = data_dir
 
             self.soyweed_part = data_dir / "tiff_test" / "2_12.tif"
+
+            # for multi-spectral testing
+            self.mlayer_ndvi = data_dir / "tiff_test" / "mlayer_yamato_ndvi.tif"
+            self.mlayer_multi = data_dir / "tiff_test" / "mlayer_yamato_multi.tif"
 
             if isinstance(test_out, str):
                 test_out = Path(test_out)

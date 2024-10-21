@@ -43,7 +43,6 @@ def test_def_get_header():
     assert lotus_part["tie_point"][0] == 368024.0839
     assert lotus_part["tie_point"][1] == 3955479.7512
 
-
 def test_def_get_imarray():
     maize_part_np = idp.geotiff.get_imarray(test_data.pix4d.maize_dom)
     assert maize_part_np.shape == (722, 836, 4)
@@ -620,6 +619,40 @@ def test_class_crop_rois():
     assert len(out_dict) == 4
     assert (tif_out_folder / "N1W1.tif").exists()
     assert out_dict["N2E2"].shape == (320, 320, 4)
+
+def test_class_crop_rois_multispec():
+    roi = idp.ROI(test_data.shp.mlayer_shp)
+
+    # 5 layers multispectral with 5th as alpha
+    multi_tiff = idp.GeoTiff(test_data.tiff.mlayer_multi)
+    multi_tiff.transparent_layer = -1
+
+    tif_out_folder = test_data.tiff.out / "multi_crop"
+    if tif_out_folder.exists():
+        shutil.rmtree(tif_out_folder)
+    tif_out_folder.mkdir()
+
+    out_dict = multi_tiff.crop_rois(roi, save_folder=tif_out_folder)
+    assert len(out_dict) == 12
+    assert (tif_out_folder / "2.tif").exists()
+    assert out_dict["2"].shape == (180, 180, 5)
+
+
+def test_class_crop_rois_ndvi_special():
+    roi = idp.ROI(test_data.shp.mlayer_shp)
+    # processing multispectral geotiff -> 2 layer ndvi (second as alpha)
+    ndvi_tiff = idp.GeoTiff(test_data.tiff.mlayer_ndvi)
+
+    tif_out_folder = test_data.tiff.out / "ndvi_crop"
+    if tif_out_folder.exists():
+        shutil.rmtree(tif_out_folder)
+    tif_out_folder.mkdir()
+
+    out_dict = ndvi_tiff.crop_rois(roi, save_folder=tif_out_folder)
+    assert len(out_dict) == 12
+    assert (tif_out_folder / "2.tif").exists()
+    assert out_dict["2"].shape == (180, 180, 2)
+
 
 def test_class_geo2pixel2geo_executable():
 
