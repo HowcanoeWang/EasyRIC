@@ -48,6 +48,8 @@ pyshp==2.1.3
 
 # read geojson file:
 geojson>=3.1.0
+# resolve encoding
+chardet==5.2.0
 
 # download the data file
 ## fix google drive download permission denied since 2023.01.29

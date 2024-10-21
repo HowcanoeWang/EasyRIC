@@ -62,12 +62,17 @@ def read_json(json_path):
     else:
         raise FileNotFoundError(f"Could not locate the given json file [{json_path}]")
     
-def _check_geojson_format(geojson_path):
+def _check_geojson_format(geojson_path, encoding='utf-8'):
     if '.geojson' not in str(geojson_path):
         raise TypeError(f"The input file format should be *.geojson, not [.{str(geojson_path).split('.')[-1]}]")
 
-    with open(geojson_path, 'r') as f:
-        geojson_data = geojson.load(f)
+    try:
+        with open(geojson_path, 'r', encoding=encoding) as f:
+            geojson_data = geojson.load(f)
+    except UnicodeDecodeError:
+        encoding = _check_file_encoding(geojson_path)
+        with open(geojson_path, 'r', encoding=encoding) as f:
+            geojson_data = geojson.load(f)
 
     # Only the FeatureCollection geojson type is supported.
     if geojson_data.type != 'FeatureCollection':
@@ -80,6 +85,14 @@ def _check_geojson_format(geojson_path):
         raise IndexError('geojson must have at least 1 item')
     
     return geojson_data
+
+def _check_file_encoding(file):
+    import chardet
+    # check file encode
+    with open(file, 'rb') as f:
+        encode_result = chardet.detect(f.read())
+        print(f'Detect input file [{file}] encoding is "{encode_result}".')
+        return encode_result
     
 def read_geojson(geojson_path, name_field=-1, include_title=False, return_proj=False):
     """Read geojson file to python dict
