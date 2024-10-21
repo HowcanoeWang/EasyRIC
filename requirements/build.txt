@@ -3,4 +3,9 @@ wheel
 numpy>=1.19
 build
 setuptools
-twine
+twine==5.1.1
+# Collecting readme-renderer>=35.0 (from twine->-r .\requirements\build.txt (line 6))
+# install readme-renderer 44.0 -> 
+#   readme-renderer 44.0 requires docutils>=0.21.2, but you have docutils 0.19 which is incompatible.
+#   sphinx 5.3.0 requires docutils<0.20,>=0.14, but you have docutils 0.21.2 which is incompatible.
+readme-renderer==35.0
