@@ -42,5 +42,6 @@
       ~GeoTiff.file_path
       ~GeoTiff.header
       ~GeoTiff.imarray
+      ~GeoTiff.transparent_layer
    
    
