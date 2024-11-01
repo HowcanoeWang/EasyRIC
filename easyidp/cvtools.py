@@ -7,7 +7,7 @@ import warnings
 warnings.filterwarnings("ignore", message="The array interface is deprecated and will no longer work in Shapely 2.0")
 
 
-def imarray_crop(imarray, polygon_hv, nodata_value=0, transparent_layer=None):
+def imarray_crop(imarray, polygon_hv, nodata_value=0, transparent_layer=None, return_mask=False):
     """crop a given ndarray image by given polygon pixel positions
 
     Parameters
@@ -60,12 +60,17 @@ def imarray_crop(imarray, polygon_hv, nodata_value=0, transparent_layer=None):
         |    0-x : specific alpha layer
         |    -1  : the last layer
 
+    return_mask: bool
+        | return the cooresponding binary mask for further usage, default False
+
     returns
     -------
     imarray_out : ndarray
         the (m,n,d) ndrray to store pixel info
     roi_top_left_offset : ndarray
         the (h, v) pixel index that represent the polygon bbox left top corner
+    mask: ndarray
+        the (m, n) binary img ndarray of polgyon masks
 
     """
     # check if the imarray is correct imarray
@@ -214,7 +219,10 @@ def imarray_crop(imarray, polygon_hv, nodata_value=0, transparent_layer=None):
         #         imarray_out[~mask, i] = nodata_value
         imarray_out[~mask] = nodata_value
 
-    return imarray_out, roi_top_left_offset
+    if return_mask:
+        return imarray_out, roi_top_left_offset, mask
+    else:
+        return imarray_out, roi_top_left_offset
 
 
 def poly2mask(image_shape, poly_coord, engine="skimage"):
